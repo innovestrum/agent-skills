@@ -23,17 +23,17 @@ git clone https://github.com/InnoVestrum/agent-skills.git ~/github/agent-skills
 
 ### Step 2a — Claude Code plugin (recommended)
 
-Claude Code can install directly from your local clone:
+Add the marketplace and install — Claude Code fetches directly from GitHub via HTTPS:
+
+```
+/plugin marketplace add InnoVestrum/agent-skills
+/plugin install innovestrum-standards@innovestrum
+```
+
+Or use the local clone (no network required after clone):
 
 ```bash
-claude plugin install ~/github/agent-skills
-```
-
-Or add as a private marketplace and install by name:
-
-```
-/plugin marketplace add ~/github/agent-skills
-/plugin install innovestrum-standards@innovestrum
+claude --plugin-dir ~/github/agent-skills
 ```
 
 Update anytime:
