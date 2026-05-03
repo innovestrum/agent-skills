@@ -73,7 +73,13 @@ install_mcps() {
     return 0
   fi
 
+  local MCP_SRC
   MCP_SRC="$REPO_DIR/mcp-servers.json"
+  if [ ! -f "$MCP_SRC" ]; then
+    MCP_SRC="$(mktemp)"
+    curl -fsSL "https://raw.githubusercontent.com/InnoVestrum/agent-skills/main/mcp-servers.json" \
+      -o "$MCP_SRC" 2>/dev/null || { echo "  ⚠ Could not fetch mcp-servers.json — skipping"; return 0; }
+  fi
 
   local tools=("Windsurf" "Cursor" "Codex")
   local dests=(
