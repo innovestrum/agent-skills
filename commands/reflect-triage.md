@@ -49,7 +49,7 @@ If non-empty, also do `readlink -f ~/.claude/CLAUDE.md` and report the repo path
   Suggested route: [p]roject  (mentions a specific architecture choice
   that varies between projects — better as project rule)
 
-  [g]lobal · [p]roject · [s]kill · [d]iscard · [?]explain
+  [g]lobal · [p]roject · [s]kill · [c]ommand · [d]iscard · [?]explain
 ```
 
 **Rules for the suggestion:**
@@ -70,6 +70,11 @@ Suggest **`[s]kill`** when the learning:
 - Is triggered by a specific command or task ("when deploying", "for code review")
 - Would be better expressed as a procedure than a declaration
 
+Suggest **`[c]ommand`** when the learning:
+- Describes a recurring ritual the user runs manually ("every release I do...", "before every PR I...")
+- Would be most useful as an interactive agent-guided session, not just a reference
+- Is too workflow-heavy to fit a skill but too interactive to fit a static rule
+
 Suggest **`[d]iscard`** when the learning:
 - Is already covered by an existing rule (check current AGENTS.md and project CLAUDE.md before suggesting)
 - Is too vague or contextual to be reusable
@@ -87,13 +92,15 @@ Process **one item at a time**. Never batch decisions. If the user picks `[?]exp
 
 - **`[s]kill`** → use the **`manage-skills`** skill. Either create a new skill or extend an existing one — let the skill choose. If creating new, suggest a kebab-case name based on the learning topic.
 
+- **`[c]ommand`** → use the **`manage-commands`** skill. Create a new slash command in `commands/` with a descriptive YAML frontmatter `description` and a Markdown body that guides the agent through the ritual step-by-step. Suggest a kebab-case name.
+
 - **`[d]iscard`** → just remove from queue. No further action.
 
 After each successful write, **immediately remove that item** from `~/.claude/learnings-queue.json` so the queue shrinks as you go. Don't wait until the end — a crash midway shouldn't lose progress.
 
 ### 5. Final pass: commit and push
 
-If any `[g]` or `[s]` writes touched the agent-skills repo:
+If any `[g]`, `[s]`, or `[c]` writes touched the agent-skills repo:
 
 ```bash
 cd "$REPO_DIR"   # resolved in step 1 above
@@ -104,7 +111,8 @@ git diff
 Show the user the diff. Suggest a Conventional Commits message based on what changed:
 - `rules: add <short-summary>` for AGENTS.md edits
 - `skills(<skill-name>): add <short-summary>` for skill edits
-- Combine into one commit if both touched (`chore: triage N learnings`)
+- `commands(<command-name>): add <short-summary>` for new slash commands
+- Combine into one commit if multiple touched (`chore: triage N learnings`)
 
 Ask: `Commit and push? [y/n]`
 
@@ -119,6 +127,7 @@ Triage complete:
   global:   N rules → AGENTS.md
   project:  N rules → ./CLAUDE.md
   skills:   N updates → skills/
+  commands: N new → commands/
   discard:  N
   remaining in queue: N
 ```
