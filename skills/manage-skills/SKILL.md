@@ -8,23 +8,28 @@ metadata:
   repo: https://github.com/InnoVestrum/agent-skills
 ---
 
-Repo: `~/github/agent-skills`. Skills are symlinked — edits are live instantly.
+Canonical repo: `~/.agents/agent-skills` (symlink created by `install.sh`, or cloned directly).
+
+If `~/.agents/agent-skills` doesn't exist, clone it first:
+```bash
+git clone https://github.com/InnoVestrum/agent-skills.git ~/.agents/agent-skills
+```
 
 **Add:** create `skills/<name>/SKILL.md` (frontmatter: `name`, `description`; body: actionable guidelines), then symlink + commit.
 ```bash
-mkdir -p ~/github/agent-skills/skills/<name>
+mkdir -p ~/.agents/agent-skills/skills/<name>
 # write SKILL.md
-ln -s ~/github/agent-skills/skills/<name> ~/.agents/skills/<name>
-git -C ~/github/agent-skills add -A && git -C ~/github/agent-skills commit -m "feat: add <name> skill" && git -C ~/github/agent-skills push
+ln -sf ~/.agents/agent-skills/skills/<name> ~/.agents/skills/<name>
+git -C ~/.agents/agent-skills add -A && git -C ~/.agents/agent-skills commit -m "feat: add <name> skill" && git -C ~/.agents/agent-skills push
 ```
 
-**Edit:** modify `skills/<name>/SKILL.md` directly, then commit.
+**Edit:** modify `~/.agents/agent-skills/skills/<name>/SKILL.md` directly, then commit.
 
 **Delete:**
 ```bash
 rm ~/.agents/skills/<name>
-rm -rf ~/github/agent-skills/skills/<name>
-git -C ~/github/agent-skills add -A && git -C ~/github/agent-skills commit -m "feat: remove <name> skill" && git -C ~/github/agent-skills push
+rm -rf ~/.agents/agent-skills/skills/<name>
+git -C ~/.agents/agent-skills add -A && git -C ~/.agents/agent-skills commit -m "feat: remove <name> skill" && git -C ~/.agents/agent-skills push
 ```
 
 **Writing skills:** `description` = one-sentence activation trigger. Be laconic — omit what the agent already knows. Domain depth only; global rules go in `AGENTS.md`.

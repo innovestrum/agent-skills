@@ -3,10 +3,9 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="$REPO_DIR/skills"
-COMMANDS_DIR="$REPO_DIR/commands"
 AGENTS_MD="$REPO_DIR/AGENTS.md"
 TARGET_DIR="$HOME/.agents/skills"
-CLAUDE_COMMANDS_DIR="$HOME/.claude/commands"
+CANONICAL_REPO="$HOME/.agents/agent-skills"
 
 install_skills() {
   mkdir -p "$TARGET_DIR"
@@ -38,30 +37,11 @@ install_agents_md() {
   echo "✓ AGENTS.md → global tool paths"
 }
 
-install_commands() {
-  # Symlink Claude Code slash commands from commands/ into ~/.claude/commands/
-  if [ ! -d "$COMMANDS_DIR" ]; then
-    echo "  (no commands/ directory found — skipping)"
-    return 0
-  fi
-
-  mkdir -p "$CLAUDE_COMMANDS_DIR"
-  local count=0
-  for cmd_path in "$COMMANDS_DIR"/*.md; do
-    [ -e "$cmd_path" ] || continue
-    cmd_name="$(basename "$cmd_path")"
-    link="$CLAUDE_COMMANDS_DIR/$cmd_name"
-    [ -L "$link" ] && rm "$link"
-    ln -s "$cmd_path" "$link"
-    echo "  linked /${cmd_name%.md}"
-    count=$((count + 1))
-  done
-
-  if [ "$count" -gt 0 ]; then
-    echo "✓ Slash commands → $CLAUDE_COMMANDS_DIR"
-  else
-    echo "  (no .md files in commands/ — skipping)"
-  fi
+install_canonical_link() {
+  mkdir -p "$(dirname "$CANONICAL_REPO")"
+  [ -L "$CANONICAL_REPO" ] && rm "$CANONICAL_REPO"
+  ln -s "$REPO_DIR" "$CANONICAL_REPO"
+  echo "✓ Repo → $CANONICAL_REPO (canonical path for skills)"
 }
 
 echo "InnoVestrum Agent Skills installer"
@@ -72,11 +52,11 @@ install_skills
 echo ""
 install_agents_md
 echo ""
-install_commands
+install_canonical_link
 echo ""
 echo "Done. Restart your agent to pick up new skills and commands."
-echo "  Claude Code: install the plugin for MCP servers + claude-reflect."
-echo "  Other tools: ask your agent to run the 'setup-mcps' skill for guided MCP setup."
+echo "  Claude Code: run '/plugin install innovestrum-standards@innovestrum' for MCPs + claude-reflect."
+echo "  Other tools: ask your agent to invoke the 'setup-mcps' skill for guided MCP setup."
 echo "Weekly ritual: run /reflect-triage in Claude Code to process captured learnings."
 echo ""
 echo "To update: git -C \"$REPO_DIR\" pull && bash \"$REPO_DIR/install.sh\""
