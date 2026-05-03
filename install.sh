@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="$REPO_DIR/skills"
 
 link_skills() {
@@ -20,13 +20,25 @@ link_skills() {
   echo "✓ $label → $target_dir"
 }
 
+install_claude_code() {
+  if command -v claude &>/dev/null; then
+    echo "Setting up Claude Code plugin marketplace..."
+    claude plugin marketplace add InnoVestrum/agent-skills 2>/dev/null || true
+    claude plugin install innovestrum-standards@innovestrum 2>/dev/null \
+      && echo "✓ Claude Code → plugin installed (innovestrum-standards@innovestrum)" \
+      || echo "⚠ Claude Code plugin install failed — falling back to symlinks"
+  else
+    echo "⚠ claude CLI not found — skipping Claude Code plugin install"
+  fi
+}
+
 echo "InnoVestrum Agent Skills installer"
 echo "Source: $SKILLS_DIR"
 echo ""
 
-link_skills "$HOME/.codeium/windsurf/skills"  "Windsurf (global)"
-link_skills "$HOME/.claude/skills"             "Claude Code (global)"
-link_skills "$HOME/.agents/skills"             "Codex (global)"
+link_skills "$HOME/.codeium/windsurf/skills" "Windsurf (global)"
+link_skills "$HOME/.agents/skills"            "Codex (global)"
+install_claude_code
 
 echo ""
 echo "Done. Restart your agent to pick up new skills."
