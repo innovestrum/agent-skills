@@ -1,6 +1,6 @@
 ---
 name: manage-skills
-description: Add, edit, or delete a skill in the InnoVestrum agent-skills repo.
+description: Manage InnoVestrum global agent skills — activate when user asks to add, update, or remove a skill from the shared InnoVestrum agent-skills repo.
 license: MIT
 metadata:
   author: InnoVestrum
@@ -27,4 +27,4 @@ rm -rf ~/github/agent-skills/skills/<name>
 git -C ~/github/agent-skills add -A && git -C ~/github/agent-skills commit -m "feat: remove <name> skill" && git -C ~/github/agent-skills push
 ```
 
-**Rules:** `description` = one-sentence activation trigger. Skills add domain depth; global rules go in `AGENTS.md`.
+**Writing skills:** `description` = one-sentence activation trigger. Be laconic — omit what the agent already knows. Domain depth only; global rules go in `AGENTS.md`.

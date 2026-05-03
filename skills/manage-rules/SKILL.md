@@ -1,6 +1,6 @@
 ---
 name: manage-rules
-description: Add, edit, or delete global engineering rules applying to all AI tools.
+description: Manage InnoVestrum global engineering rules — activate when user asks to add, update, or remove a rule from the shared InnoVestrum standards applied across all AI tools.
 license: MIT
 metadata:
   author: InnoVestrum
