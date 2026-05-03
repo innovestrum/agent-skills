@@ -47,7 +47,7 @@ flowchart TD
         L3("route & commit"):::loop
     end
 
-    REPO -->|"install.sh"| INSTALL
+    REPO -->|"git clone + install.sh"| INSTALL
     I1 --> WS & CC & CX
     I2 & I3 --> CC
 
@@ -71,10 +71,13 @@ flowchart TD
 ## Installation
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/InnoVestrum/agent-skills/main/install.sh | bash
+git clone https://github.com/InnoVestrum/agent-skills.git ~/.agents/agent-skills
+bash ~/.agents/agent-skills/install.sh
 ```
 
-Installs skills, global rules, slash commands, and — if the `claude` CLI is present — the Claude Code plugin (MCPs + `claude-reflect`) automatically.
+Cloning is required — the self-learning loop (`/reflect-triage`) commits and pushes skill and rule changes back to this repo. A `curl | bash` approach would have no git history to push to.
+
+**What gets installed:** skills, global rules, slash commands, canonical repo symlink, and — if the `claude` CLI is present — the Claude Code plugin (MCPs + `claude-reflect`) automatically.
 
 To update: `git -C ~/.agents/agent-skills pull && bash ~/.agents/agent-skills/install.sh`
 
