@@ -30,36 +30,33 @@ Custom Claude Code slash commands that work alongside the skills.
 |---|---|
 | [`/reflect-triage`](commands/reflect-triage.md) | Process the [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) learnings queue with smart routing — global rules go into `AGENTS.md`, procedural learnings become skills, project-specific rules stay in the project's `CLAUDE.md`. Each routing decision requires explicit human approval. |
 
-The `install.sh` script symlinks `commands/*.md` into `~/.claude/commands/` automatically.
-
 ## Installation
 
-### All [agentskills.io](https://agentskills.io) compatible tools — one command
+### Step 1 — Universal base install (all tools)
 
-Symlinks all skills into `~/.agents/skills/` and installs `AGENTS.md` as global rules for all tools:
+Installs skills and global rules for every agentskills.io-compatible tool:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/InnoVestrum/agent-skills/main/install.sh | bash
 ```
 
 **What gets installed:**
-- Skills → `~/.agents/skills/` (Windsurf, Cursor, Copilot, Codex, all agentskills.io clients)
+- Skills → `~/.agents/skills/`
 - `AGENTS.md` → `~/.config/agents/AGENTS.md`, `~/.codex/AGENTS.md`, `~/.claude/CLAUDE.md`, `~/.config/AGENTS.md`, `~/.codeium/windsurf/memories/global_rules.md`
-- Slash commands → `~/.claude/commands/` (Claude Code only)
-- [claude-reflect](https://github.com/BayramAnnakov/claude-reflect) plugin (best-effort via Claude Code CLI; falls back to printed instructions if the CLI isn't available)
+- Repo symlink → `~/.agents/agent-skills` (canonical path used by all skills)
 
-To update: `git -C ~/github/agent-skills pull && bash ~/github/agent-skills/install.sh`
+To update: `git -C ~/.agents/agent-skills pull && bash ~/.agents/agent-skills/install.sh`
 
-### Claude Code — plugin install (independent)
+### Step 2a — Claude Code: plugin install
 
-Installs skills, MCP servers (github, context7, brave-search), `/reflect-triage` command, and `claude-reflect` — all in one:
+Adds MCP servers (github, context7, brave-search), `/reflect-triage` command, and `claude-reflect` on top of the base install:
 
 ```
 /plugin marketplace add InnoVestrum/agent-skills
 /plugin install innovestrum-standards@innovestrum
 ```
 
-Then configure your API tokens when prompted (or run `/plugin config innovestrum-standards`), and **restart Claude Code**.
+Configure API tokens when prompted (or `/plugin config innovestrum-standards`), then **restart Claude Code**.
 
 Verify:
 ```
@@ -67,6 +64,10 @@ Verify:
 /mcp           → github, context7, brave-search
 /reflect       → reflect-triage (autocomplete)
 ```
+
+### Step 2b — Windsurf / Cursor / Codex: guided MCP setup
+
+After the base install, ask your agent: *"set up MCPs"* — it will invoke the `setup-mcps` skill and walk you through the exact config for your tool.
 
 ## Self-Learning Workflow
 
