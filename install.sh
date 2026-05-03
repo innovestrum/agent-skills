@@ -20,7 +20,8 @@ install_skills() {
 }
 
 install_agents_md() {
-  # Ordered: most-standard path first (proposed XDG standard), then per-tool paths
+  # TODO: once ~/.config/agents/AGENTS.md is universally adopted (agentskills.io issue #91),
+  # replace all tool-specific paths below with that single XDG path.
   declare -a paths=(
     "$HOME/.config/agents/AGENTS.md"                  # proposed XDG standard (issue #91)
     "$HOME/.codex/AGENTS.md"                          # Codex CLI
