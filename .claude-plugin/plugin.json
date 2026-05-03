@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "innovestrum-standards",
+  "version": "1.0.0",
+  "description": "InnoVestrum engineering standards: clean-code, OOP/SOLID/GRASP, cloud-native 12-factor, and code quality metrics",
+  "author": {
+    "name": "InnoVestrum",
+    "url": "https://github.com/InnoVestrum"
+  },
+  "homepage": "https://github.com/InnoVestrum/agent-skills",
+  "repository": "https://github.com/InnoVestrum/agent-skills",
+  "license": "MIT",
+  "keywords": ["clean-code", "solid", "oop", "cloud-native", "12-factor", "code-quality", "dry", "kiss", "yagni"],
+  "skills": "./skills/"
+}

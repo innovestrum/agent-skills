@@ -13,51 +13,36 @@ A collection of portable [Agent Skills](https://agentskills.io) encoding InnoVes
 
 ## Installation
 
-### Windsurf (workspace)
+### Claude Code — 2 commands (recommended)
+
+Add this repo as a marketplace, then install the plugin:
+
+```
+/plugin marketplace add InnoVestrum/agent-skills
+/plugin install innovestrum-standards@innovestrum
+```
+
+Skills are fetched directly from GitHub and stay up-to-date via `/plugin update`.
+
+### Windsurf / Codex / Cursor — install script
 
 ```bash
+curl -fsSL https://raw.githubusercontent.com/InnoVestrum/agent-skills/main/install.sh | bash
+```
+
+This symlinks all skills into `~/.codeium/windsurf/skills/` (Windsurf global), `~/.claude/skills/` (Claude Code global), and `~/.agents/skills/` (Codex global). Pull the repo and re-run to update.
+
+#### Manual (single tool, workspace scope)
+
+```bash
+# Windsurf
 cp -r skills/* .windsurf/skills/
-```
 
-### Windsurf (global — all workspaces)
-
-```bash
-cp -r skills/* ~/.codeium/windsurf/skills/
-```
-
-### Claude Code (workspace)
-
-```bash
+# Claude Code
 cp -r skills/* .claude/skills/
-```
 
-### Claude Code (global)
-
-```bash
-cp -r skills/* ~/.claude/skills/
-```
-
-### Codex (workspace)
-
-```bash
+# Codex
 cp -r skills/* .agents/skills/
-```
-
-### All tools at once (workspace)
-
-```bash
-mkdir -p .windsurf/skills .claude/skills .agents/skills
-cp -r skills/* .windsurf/skills/
-cp -r skills/* .claude/skills/
-cp -r skills/* .agents/skills/
-```
-
-Or use symlinks to stay in sync with updates from this repo:
-
-```bash
-ln -s /path/to/agent-skills/skills/coding-standards .windsurf/skills/coding-standards
-ln -s /path/to/agent-skills/skills/coding-standards .claude/skills/coding-standards
-# repeat for each skill
 ```
 
 ## Skill Format
