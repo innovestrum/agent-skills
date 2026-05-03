@@ -6,23 +6,23 @@ Portable [Agent Skills](https://agentskills.io) and global engineering rules for
 
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {
-  "background": "#181825",
-  "primaryColor": "#313244",
-  "primaryTextColor": "#cdd6f4",
-  "primaryBorderColor": "#45475a",
-  "lineColor": "#585b70",
-  "clusterBkg": "#1e1e2e",
-  "clusterBorder": "#45475a",
-  "titleColor": "#a6adc8",
-  "edgeLabelBackground": "#181825",
-  "fontFamily": "ui-monospace, monospace",
+  "background": "#ffffff",
+  "primaryColor": "#f0f4ff",
+  "primaryTextColor": "#1e1e2e",
+  "primaryBorderColor": "#c0c8e8",
+  "lineColor": "#94a3b8",
+  "clusterBkg": "#f8faff",
+  "clusterBorder": "#c0c8e8",
+  "titleColor": "#64748b",
+  "edgeLabelBackground": "#ffffff",
+  "fontFamily": "ui-sans-serif, system-ui, sans-serif",
   "fontSize": "13px"
 }}}%%
 flowchart TD
-    classDef repo    fill:#2a273f,stroke:#cba6f7,color:#cba6f7,font-weight:bold
-    classDef install fill:#1e2d1e,stroke:#a6e3a1,color:#a6e3a1
-    classDef tool    fill:#1a2535,stroke:#89b4fa,color:#89b4fa
-    classDef loop    fill:#2d1e1e,stroke:#fab387,color:#fab387
+    classDef repo    fill:#ede9fe,stroke:#7c3aed,color:#4c1d95,font-weight:600
+    classDef install fill:#f0fdf4,stroke:#16a34a,color:#14532d
+    classDef tool    fill:#eff6ff,stroke:#2563eb,color:#1e3a8a
+    classDef loop    fill:#fff7ed,stroke:#ea580c,color:#7c2d12
 
     REPO(["🗂  agent-skills · github.com/InnoVestrum"]):::repo
 
