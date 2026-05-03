@@ -70,7 +70,11 @@ Then configure API tokens (`claude plugin config innovestrum-standards`) and res
 
 ## Self-Learning Workflow
 
-Corrections you make during coding are automatically captured by `claude-reflect` and queued. Run `/reflect-triage` weekly to review and route each item:
+Corrections you make during coding are automatically captured by `claude-reflect` and queued. Run `/reflect-triage` weekly (Claude Code only) to review and route each item:
+
+```
+/reflect-triage
+```
 
 - `[g]lobal` → appended to `AGENTS.md`, committed and pushed (propagates to all tools via symlink)
 - `[p]roject` → written to the local `CLAUDE.md`
