@@ -19,6 +19,8 @@ A collection of portable [Agent Skills](https://agentskills.io) encoding InnoVes
 | [`manage-skills`](skills/manage-skills) | Add, edit, or delete skills in this repository |
 | [`manage-rules`](skills/manage-rules) | Add, edit, or delete global engineering rules in `AGENTS.md` |
 | [`setup-mcps`](skills/setup-mcps) | Guided MCP server setup for Windsurf, Cursor, Codex, and Claude Code |
+| [`manage-commands`](skills/manage-commands) | Add, edit, or delete Claude Code slash commands in this repository |
+| [`manage-mcps`](skills/manage-mcps) | Add, edit, or remove MCP server declarations for the plugin or any tool |
 
 `manage-skills` and `manage-rules` are invoked automatically by `/reflect-triage` when routing learnings, but all skills can also be called directly in any chat.
 
