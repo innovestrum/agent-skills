@@ -5,41 +5,51 @@ Portable [Agent Skills](https://agentskills.io) and global engineering rules for
 ## Architecture
 
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {
+  "background": "#181825",
+  "primaryColor": "#313244",
+  "primaryTextColor": "#cdd6f4",
+  "primaryBorderColor": "#45475a",
+  "lineColor": "#6c7086",
+  "secondaryColor": "#1e1e2e",
+  "tertiaryColor": "#1e1e2e",
+  "clusterBkg": "#1e1e2e",
+  "clusterBorder": "#45475a",
+  "titleColor": "#cdd6f4",
+  "edgeLabelBackground": "#181825",
+  "fontFamily": "ui-monospace, monospace"
+}}}%%
 flowchart LR
-    classDef repo     fill:#1e1e2e,stroke:#cba6f7,color:#cdd6f4,rx:8
-    classDef tool     fill:#1e1e2e,stroke:#89b4fa,color:#cdd6f4,rx:8
-    classDef action   fill:#1e1e2e,stroke:#a6e3a1,color:#cdd6f4,rx:8
-    classDef learn    fill:#1e1e2e,stroke:#fab387,color:#cdd6f4,rx:8
+    classDef repo    fill:#2a273f,stroke:#cba6f7,color:#cdd6f4,font-weight:bold
+    classDef install fill:#1e2d1e,stroke:#a6e3a1,color:#a6e3a1
+    classDef tool    fill:#1a2535,stroke:#89b4fa,color:#89b4fa
+    classDef loop    fill:#2d1e1e,stroke:#fab387,color:#fab387
 
-    REPO(["🗂 agent-skills\nGitHub repo"]):::repo
+    REPO(["  agent-skills\n  github.com/InnoVestrum"]):::repo
 
-    subgraph INSTALL ["  one-time install  "]
-        direction TB
-        I1["skills & rules"]:::action
-        I2["slash commands"]:::action
-        I3["MCPs + claude-reflect"]:::action
+    subgraph INSTALL ["  ⚙ one-time install  "]
+        I1("skills & rules"):::install
+        I2("slash commands"):::install
+        I3("MCPs + claude-reflect"):::install
     end
 
-    subgraph TOOLS ["  AI tools  "]
-        direction TB
-        CC["Claude Code"]:::tool
-        WS["Windsurf"]:::tool
-        CX["Cursor · Codex · Copilot"]:::tool
+    subgraph TOOLS ["  🛠 AI tools  "]
+        CC("Claude Code"):::tool
+        WS("Windsurf"):::tool
+        CX("Cursor · Codex · Copilot"):::tool
     end
 
-    subgraph LOOP ["  self-learning loop  "]
-        direction TB
-        L1["auto-capture corrections"]:::learn
-        L2["/reflect-triage"]:::learn
-        L3["route & commit"]:::learn
+    subgraph LOOP ["  🔄 self-learning loop  "]
+        L1("auto-capture\ncorrections"):::loop
+        L2("/reflect-triage"):::loop
+        L3("route & commit"):::loop
     end
 
-    REPO -->|install.sh| INSTALL
+    REPO -->|"install.sh"| INSTALL
     I1 --> CC & WS & CX
     I2 --> CC
     I3 --> CC
-
-    CC --> L1 --> L2 --> L3 -->|git push| REPO
+    CC --> L1 --> L2 --> L3 -->|"git push"| REPO
 ```
 
 ## Compatibility
