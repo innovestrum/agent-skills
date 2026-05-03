@@ -15,11 +15,15 @@ A collection of portable [Agent Skills](https://agentskills.io) encoding InnoVes
 
 ### All [agentskills.io](https://agentskills.io) compatible tools — one command
 
-Symlinks all skills into `~/.agents/skills/`, the universal path scanned by Windsurf, Cursor, Copilot, Codex, and any other agentskills.io-compatible client:
+Symlinks all skills into `~/.agents/skills/` and installs `AGENTS.md` as global rules for all tools:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/InnoVestrum/agent-skills/main/install.sh | bash
 ```
+
+**What gets installed:**
+- Skills → `~/.agents/skills/` (Windsurf, Cursor, Copilot, Codex, all agentskills.io clients)
+- `AGENTS.md` → `~/.config/agents/AGENTS.md`, `~/.codex/AGENTS.md`, `~/.claude/CLAUDE.md`, `~/.config/AGENTS.md`
 
 To update: `git -C ~/github/agent-skills pull && bash ~/github/agent-skills/install.sh`
 
