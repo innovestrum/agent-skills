@@ -11,8 +11,6 @@
   "repository": "https://github.com/InnoVestrum/agent-skills",
   "license": "MIT",
   "keywords": ["clean-code", "solid", "oop", "cloud-native", "12-factor", "code-quality", "dry", "kiss", "yagni"],
-  "skills": "./skills/",
-  "commands": ["./commands/reflect-triage.md"],
   "mcpServers": "./.claude-plugin/mcp-config.json",
   "userConfig": {
     "github_token": {

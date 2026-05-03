@@ -3,9 +3,11 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="$REPO_DIR/skills"
+COMMANDS_DIR="$REPO_DIR/commands"
 AGENTS_MD="$REPO_DIR/AGENTS.md"
 TARGET_DIR="$HOME/.agents/skills"
 CANONICAL_REPO="$HOME/.agents/agent-skills"
+CLAUDE_COMMANDS_DIR="$HOME/.claude/commands"
 
 install_skills() {
   mkdir -p "$TARGET_DIR"
@@ -38,6 +40,25 @@ install_agents_md() {
   echo "✓ AGENTS.md → global tool paths"
 }
 
+install_commands() {
+  if [ ! -d "$COMMANDS_DIR" ]; then
+    echo "  (no commands/ directory — skipping)"
+    return 0
+  fi
+  mkdir -p "$CLAUDE_COMMANDS_DIR"
+  local count=0
+  for cmd_path in "$COMMANDS_DIR"/*.md; do
+    [ -e "$cmd_path" ] || continue
+    cmd_name="$(basename "$cmd_path")"
+    link="$CLAUDE_COMMANDS_DIR/$cmd_name"
+    [ -L "$link" ] && rm "$link"
+    ln -s "$cmd_path" "$link"
+    echo "  linked /${cmd_name%.md}"
+    count=$((count + 1))
+  done
+  [ "$count" -gt 0 ] && echo "✓ Slash commands → $CLAUDE_COMMANDS_DIR" || echo "  (no .md files in commands/ — skipping)"
+}
+
 install_canonical_link() {
   mkdir -p "$(dirname "$CANONICAL_REPO")"
   [ -L "$CANONICAL_REPO" ] && rm "$CANONICAL_REPO"
@@ -52,6 +73,8 @@ echo ""
 install_skills
 echo ""
 install_agents_md
+echo ""
+install_commands
 echo ""
 install_canonical_link
 echo ""
