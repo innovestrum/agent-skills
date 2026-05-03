@@ -59,6 +59,17 @@ install_commands() {
   [ "$count" -gt 0 ] && echo "✓ Slash commands → $CLAUDE_COMMANDS_DIR" || echo "  (no .md files in commands/ — skipping)"
 }
 
+install_claude_plugin() {
+  if ! command -v claude >/dev/null 2>&1; then
+    echo "  (claude CLI not found — skipping plugin install)"
+    echo "    Install Claude Code, then run: claude plugin install innovestrum-standards@innovestrum"
+    return 0
+  fi
+  claude plugin marketplace add InnoVestrum/agent-skills 2>/dev/null || true
+  claude plugin install innovestrum-standards@innovestrum
+  echo "✓ Claude Code plugin installed (MCPs + claude-reflect)"
+}
+
 install_canonical_link() {
   mkdir -p "$(dirname "$CANONICAL_REPO")"
   [ -L "$CANONICAL_REPO" ] && rm "$CANONICAL_REPO"
@@ -78,8 +89,9 @@ install_commands
 echo ""
 install_canonical_link
 echo ""
+install_claude_plugin
+echo ""
 echo "Done. Restart your agent to pick up new skills and commands."
-echo "  Claude Code: run '/plugin install innovestrum-standards@innovestrum' for MCPs + claude-reflect."
 echo "  Other tools: ask your agent to invoke the 'setup-mcps' skill for guided MCP setup."
 echo "Weekly ritual: run /reflect-triage in Claude Code to process captured learnings."
 echo ""
