@@ -20,7 +20,7 @@ A collection of portable [Agent Skills](https://agentskills.io) encoding InnoVes
 | [`manage-rules`](skills/manage-rules) | Add, edit, or delete global engineering rules in `AGENTS.md` |
 | [`setup-mcps`](skills/setup-mcps) | Guided MCP server setup for Windsurf, Cursor, Codex, and Claude Code |
 
-Both skills are invoked automatically by `/reflect-triage` when routing learnings, but you can also call them directly in any chat.
+`manage-skills` and `manage-rules` are invoked automatically by `/reflect-triage` when routing learnings, but all skills can also be called directly in any chat.
 
 ## Slash Commands
 
@@ -108,12 +108,11 @@ When triaging, the rule of thumb is: *"If I deleted my current project tomorrow 
 
 ### Setup checklist
 
-After running `install.sh`:
-
-1. Restart Claude Code (required to activate the plugin).
-2. Verify the plugin: `/plugin list` should show `claude-reflect`.
-3. Verify the command: typing `/reflect` should show `reflect-triage` as an option.
-4. (Optional but recommended) Extend session retention so historical scans work — add to `~/.claude/settings.json`:
+1. Run `install.sh` (Step 1 above).
+2. In Claude Code, run `/plugin install innovestrum-standards@innovestrum` (Step 2a).
+3. Restart Claude Code.
+4. Verify: `/reflect` → `reflect-triage` autocompletes; `/mcp` → shows github, context7, brave-search.
+5. (Optional) Extend session retention — add to `~/.claude/settings.json`:
 
    ```json
    { "sessionRetentionDays": 90 }
