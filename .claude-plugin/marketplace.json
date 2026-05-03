@@ -8,8 +8,8 @@
     {
       "name": "innovestrum-standards",
       "source": {
-        "source": "github",
-        "repo": "InnoVestrum/agent-skills"
+        "source": "url",
+        "url": "https://github.com/InnoVestrum/agent-skills.git"
       },
       "description": "InnoVestrum engineering standards: clean-code, OOP/SOLID/GRASP, cloud-native 12-factor, and code quality metrics",
       "license": "MIT",
