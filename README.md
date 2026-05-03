@@ -13,56 +13,23 @@ A collection of portable [Agent Skills](https://agentskills.io) encoding InnoVes
 
 ## Installation
 
-> **Private repo** — clone first, then install. All methods below require you to have read access to `InnoVestrum/agent-skills`.
+### All [agentskills.io](https://agentskills.io) compatible tools — one command
 
-### Step 1 — Clone once (all tools)
+Symlinks all skills into `~/.agents/skills/`, the universal path scanned by Windsurf, Cursor, Copilot, Codex, and any other agentskills.io-compatible client:
 
 ```bash
-git clone https://github.com/InnoVestrum/agent-skills.git ~/github/agent-skills
+curl -fsSL https://raw.githubusercontent.com/InnoVestrum/agent-skills/main/install.sh | bash
 ```
 
-### Step 2a — Claude Code plugin (recommended)
+To update: `git -C ~/github/agent-skills pull && bash ~/github/agent-skills/install.sh`
 
-Add the marketplace and install — Claude Code fetches directly from GitHub via HTTPS:
+### Claude Code — plugin install (independent)
+
+Claude Code supports skills via `~/.agents/skills/` **and** via its plugin system. To use the plugin approach (enables `/plugin update`, versioning, and marketplace browsing):
 
 ```
 /plugin marketplace add InnoVestrum/agent-skills
 /plugin install innovestrum-standards@innovestrum
-```
-
-Or use the local clone (no network required after clone):
-
-```bash
-claude --plugin-dir ~/github/agent-skills
-```
-
-Update anytime:
-```bash
-git -C ~/github/agent-skills pull
-/plugin update innovestrum-standards@innovestrum
-```
-
-### Step 2b — Windsurf / Codex / Cursor
-
-Run the install script from the cloned repo:
-
-```bash
-bash ~/github/agent-skills/install.sh
-```
-
-This symlinks all skills into global skill dirs for Windsurf, Claude Code, and Codex. Re-run after `git pull` to pick up updates.
-
-#### Manual (single tool, workspace scope)
-
-```bash
-# Windsurf
-cp -r ~/github/agent-skills/skills/* .windsurf/skills/
-
-# Claude Code
-cp -r ~/github/agent-skills/skills/* .claude/skills/
-
-# Codex
-cp -r ~/github/agent-skills/skills/* .agents/skills/
 ```
 
 ## Skill Format
