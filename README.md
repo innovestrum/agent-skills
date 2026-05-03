@@ -10,46 +10,50 @@ Portable [Agent Skills](https://agentskills.io) and global engineering rules for
   "primaryColor": "#313244",
   "primaryTextColor": "#cdd6f4",
   "primaryBorderColor": "#45475a",
-  "lineColor": "#6c7086",
-  "secondaryColor": "#1e1e2e",
-  "tertiaryColor": "#1e1e2e",
+  "lineColor": "#585b70",
   "clusterBkg": "#1e1e2e",
   "clusterBorder": "#45475a",
-  "titleColor": "#cdd6f4",
+  "titleColor": "#a6adc8",
   "edgeLabelBackground": "#181825",
-  "fontFamily": "ui-monospace, monospace"
+  "fontFamily": "ui-monospace, monospace",
+  "fontSize": "13px"
 }}}%%
-flowchart LR
-    classDef repo    fill:#2a273f,stroke:#cba6f7,color:#cdd6f4,font-weight:bold
+flowchart TD
+    classDef repo    fill:#2a273f,stroke:#cba6f7,color:#cba6f7,font-weight:bold
     classDef install fill:#1e2d1e,stroke:#a6e3a1,color:#a6e3a1
     classDef tool    fill:#1a2535,stroke:#89b4fa,color:#89b4fa
     classDef loop    fill:#2d1e1e,stroke:#fab387,color:#fab387
 
-    REPO(["  agent-skills\n  github.com/InnoVestrum"]):::repo
+    REPO(["🗂  agent-skills · github.com/InnoVestrum"]):::repo
 
-    subgraph INSTALL ["  ⚙ one-time install  "]
+    subgraph INSTALL ["  ⚙  one-time install  "]
+        direction LR
         I1("skills & rules"):::install
         I2("slash commands"):::install
         I3("MCPs + claude-reflect"):::install
     end
 
-    subgraph TOOLS ["  🛠 AI tools  "]
-        CC("Claude Code"):::tool
+    subgraph TOOLS ["  🛠  AI tools  "]
+        direction LR
         WS("Windsurf"):::tool
+        CC("Claude Code"):::tool
         CX("Cursor · Codex · Copilot"):::tool
     end
 
-    subgraph LOOP ["  🔄 self-learning loop  "]
-        L1("auto-capture\ncorrections"):::loop
+    subgraph LOOP ["  🔄  self-learning loop  "]
+        direction LR
+        L1("auto-capture corrections"):::loop
         L2("/reflect-triage"):::loop
         L3("route & commit"):::loop
     end
 
     REPO -->|"install.sh"| INSTALL
-    I1 --> CC & WS & CX
-    I2 --> CC
-    I3 --> CC
-    CC --> L1 --> L2 --> L3 -->|"git push"| REPO
+    I1 --> WS & CC & CX
+    I2 & I3 --> CC
+
+    CC --> LOOP
+    L1 --> L2 --> L3
+    L3 -->|"git push"| REPO
 ```
 
 ## Compatibility
