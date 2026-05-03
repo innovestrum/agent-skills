@@ -8,7 +8,7 @@ A collection of portable [Agent Skills](https://agentskills.io) encoding InnoVes
 |---|:---:|:---:|:---:|:---:|:---:|
 | Global rules (`AGENTS.md`) | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Skills (`~/.agents/skills/`) | ✅ | ✅ | ✅ | ✅ | ✅ |
-| MCP servers (github, context7, brave) | ✅ | ✅ | ✅ | ✅ | ➖ |
+| MCP servers (github, context7, brave) | 🔧 | ✅ | 🔧 | 🔧 | ➖ |
 | `/reflect-triage` slash command | ❌ | ✅ | ❌ | ❌ | ❌ |
 | `claude-reflect` auto-capture | ❌ | ✅ | ❌ | ❌ | ❌ |
 
@@ -18,6 +18,7 @@ A collection of portable [Agent Skills](https://agentskills.io) encoding InnoVes
 |---|---|
 | [`manage-skills`](skills/manage-skills) | Add, edit, or delete skills in this repository |
 | [`manage-rules`](skills/manage-rules) | Add, edit, or delete global engineering rules in `AGENTS.md` |
+| [`setup-mcps`](skills/setup-mcps) | Guided MCP server setup for Windsurf, Cursor, Codex, and Claude Code |
 
 Both skills are invoked automatically by `/reflect-triage` when routing learnings, but you can also call them directly in any chat.
 
