@@ -6,10 +6,8 @@ A collection of portable [Agent Skills](https://agentskills.io) encoding InnoVes
 
 | Skill | Description |
 |---|---|
-| [`coding-standards`](./skills/coding-standards/) | Clean-code, DRY, KISS, YAGNI principles |
-| [`oop-architecture`](./skills/oop-architecture/) | OOP, SOLID, GRASP, dependency injection & IoC |
-| [`cloud-native`](./skills/cloud-native/) | 12-factor, Docker/Alpine, env config, observability |
-| [`code-quality`](./skills/code-quality/) | Cyclomatic/cognitive complexity, coupling, maintainability |
+| [`manage-skills`](./skills/manage-skills/) | Add, edit, or delete skills in this repository |
+| [`manage-rules`](./skills/manage-rules/) | Add, edit, or delete global engineering rules in `AGENTS.md` |
 
 ## Installation
 
