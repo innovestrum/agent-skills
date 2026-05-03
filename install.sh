@@ -64,32 +64,6 @@ install_commands() {
   fi
 }
 
-install_claude_reflect() {
-  # Self-learning plugin: captures corrections in chat, queues them for /reflect-triage.
-  # Tries CLI install first, falls back to printed instructions.
-  if ! command -v claude >/dev/null 2>&1; then
-    echo "  ⚠ Claude Code CLI not found in PATH"
-    echo "    Install Claude Code first: https://docs.claude.com/en/docs/claude-code/setup"
-    echo "    Then re-run this installer, or install the plugin manually:"
-    echo "      /plugin marketplace add bayramannakov/claude-reflect"
-    echo "      /plugin install claude-reflect@claude-reflect-marketplace"
-    return 0
-  fi
-
-  # Best-effort CLI install. The Claude Code plugin CLI commands may differ across
-  # versions; on failure we print fallback instructions instead of erroring out.
-  if claude plugin marketplace add bayramannakov/claude-reflect >/dev/null 2>&1 \
-     && claude plugin install claude-reflect@claude-reflect-marketplace >/dev/null 2>&1; then
-    echo "✓ claude-reflect plugin installed (restart Claude Code to activate)"
-  else
-    echo "  ⚠ Could not auto-install claude-reflect via CLI"
-    echo "    Run inside Claude Code:"
-    echo "      /plugin marketplace add bayramannakov/claude-reflect"
-    echo "      /plugin install claude-reflect@claude-reflect-marketplace"
-    echo "    Then restart Claude Code."
-  fi
-}
-
 echo "InnoVestrum Agent Skills installer"
 echo "Source: $REPO_DIR"
 echo ""
@@ -100,9 +74,8 @@ install_agents_md
 echo ""
 install_commands
 echo ""
-install_claude_reflect
-echo ""
 echo "Done. Restart your agent to pick up new skills and commands."
+echo "  claude-reflect is declared as a plugin dependency — Claude Code installs it automatically."
 echo "Weekly ritual: run /reflect-triage in Claude Code to process captured learnings."
 echo ""
 echo "To update: git -C \"$REPO_DIR\" pull && bash \"$REPO_DIR/install.sh\""

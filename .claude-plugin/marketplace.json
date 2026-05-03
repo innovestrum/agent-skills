@@ -4,6 +4,7 @@
     "name": "InnoVestrum",
     "url": "https://github.com/InnoVestrum"
   },
+  "allowCrossMarketplaceDependenciesOn": ["claude-reflect-marketplace"],
   "plugins": [
     {
       "name": "innovestrum-standards",

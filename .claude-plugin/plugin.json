@@ -11,5 +11,9 @@
   "repository": "https://github.com/InnoVestrum/agent-skills",
   "license": "MIT",
   "keywords": ["clean-code", "solid", "oop", "cloud-native", "12-factor", "code-quality", "dry", "kiss", "yagni"],
-  "skills": "./skills/"
+  "skills": "./skills/",
+  "commands": ["./commands/reflect-triage.md"],
+  "dependencies": [
+    { "name": "claude-reflect", "marketplace": "claude-reflect-marketplace" }
+  ]
 }
