@@ -23,7 +23,7 @@ curl -fsSL https://raw.githubusercontent.com/InnoVestrum/agent-skills/main/insta
 
 **What gets installed:**
 - Skills → `~/.agents/skills/` (Windsurf, Cursor, Copilot, Codex, all agentskills.io clients)
-- `AGENTS.md` → `~/.config/agents/AGENTS.md`, `~/.codex/AGENTS.md`, `~/.claude/CLAUDE.md`, `~/.config/AGENTS.md`
+- `AGENTS.md` → `~/.config/agents/AGENTS.md`, `~/.codex/AGENTS.md`, `~/.claude/CLAUDE.md`, `~/.config/AGENTS.md`, `~/.codeium/windsurf/memories/global_rules.md`
 
 To update: `git -C ~/github/agent-skills pull && bash ~/github/agent-skills/install.sh`
 

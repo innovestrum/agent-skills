@@ -21,10 +21,11 @@ install_skills() {
 install_agents_md() {
   # Ordered: most-standard path first (proposed XDG standard), then per-tool paths
   declare -a paths=(
-    "$HOME/.config/agents/AGENTS.md"   # proposed XDG standard (issue #91)
-    "$HOME/.codex/AGENTS.md"           # Codex CLI
-    "$HOME/.claude/CLAUDE.md"          # Claude Code
-    "$HOME/.config/AGENTS.md"          # Amp
+    "$HOME/.config/agents/AGENTS.md"                        # proposed XDG standard (issue #91)
+    "$HOME/.codex/AGENTS.md"                                # Codex CLI
+    "$HOME/.claude/CLAUDE.md"                               # Claude Code
+    "$HOME/.config/AGENTS.md"                               # Amp
+    "$HOME/.codeium/windsurf/memories/global_rules.md"      # Windsurf global rules
   )
   for dest in "${paths[@]}"; do
     mkdir -p "$(dirname "$dest")"
