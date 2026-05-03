@@ -5,36 +5,41 @@ Portable [Agent Skills](https://agentskills.io) and global engineering rules for
 ## Architecture
 
 ```mermaid
-graph TD
-    REPO["GitHub repo\nagent-skills"]
+flowchart LR
+    classDef repo     fill:#1e1e2e,stroke:#cba6f7,color:#cdd6f4,rx:8
+    classDef tool     fill:#1e1e2e,stroke:#89b4fa,color:#cdd6f4,rx:8
+    classDef action   fill:#1e1e2e,stroke:#a6e3a1,color:#cdd6f4,rx:8
+    classDef learn    fill:#1e1e2e,stroke:#fab387,color:#cdd6f4,rx:8
 
-    subgraph install ["install.sh (one-time)"]
-        SKILLS["skills/ → ~/.agents/skills/"]
-        RULES["AGENTS.md → all tool rule paths"]
-        CMDS["commands/ → ~/.claude/commands/"]
-        PLUGIN["Claude Code plugin\n(MCPs + claude-reflect)"]
+    REPO(["🗂 agent-skills\nGitHub repo"]):::repo
+
+    subgraph INSTALL ["  one-time install  "]
+        direction TB
+        I1["skills & rules"]:::action
+        I2["slash commands"]:::action
+        I3["MCPs + claude-reflect"]:::action
     end
 
-    subgraph tools ["AI Tools"]
-        CC["Claude Code"]
-        WS["Windsurf"]
-        CX["Cursor / Codex / Copilot"]
+    subgraph TOOLS ["  AI tools  "]
+        direction TB
+        CC["Claude Code"]:::tool
+        WS["Windsurf"]:::tool
+        CX["Cursor · Codex · Copilot"]:::tool
     end
 
-    subgraph selflearn ["Self-learning loop (Claude Code)"]
-        CAP["claude-reflect\nauto-captures corrections"]
-        QUEUE["~/.claude/learnings-queue.json"]
-        TRIAGE["/reflect-triage\n(weekly)"]
-        DEST["→ AGENTS.md · CLAUDE.md · skills/"]
+    subgraph LOOP ["  self-learning loop  "]
+        direction TB
+        L1["auto-capture corrections"]:::learn
+        L2["/reflect-triage"]:::learn
+        L3["route & commit"]:::learn
     end
 
-    REPO --> install
-    SKILLS --> CC & WS & CX
-    RULES --> CC & WS & CX
-    CMDS --> CC
-    PLUGIN --> CC
+    REPO -->|install.sh| INSTALL
+    I1 --> CC & WS & CX
+    I2 --> CC
+    I3 --> CC
 
-    CC --> CAP --> QUEUE --> TRIAGE --> DEST --> REPO
+    CC --> L1 --> L2 --> L3 -->|git push| REPO
 ```
 
 ## Compatibility
