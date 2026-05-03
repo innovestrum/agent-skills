@@ -26,10 +26,11 @@ install_claude_code() {
     return
   fi
 
-  echo "Setting up Claude Code plugin (local)..."
-  if claude plugin marketplace add "$REPO_DIR" 2>/dev/null \
+  echo "Setting up Claude Code plugin marketplace..."
+  claude plugin marketplace remove innovestrum 2>/dev/null || true
+  if claude plugin marketplace add InnoVestrum/agent-skills 2>/dev/null \
      && claude plugin install innovestrum-standards@innovestrum 2>/dev/null; then
-    echo "✓ Claude Code → plugin installed from local clone"
+    echo "✓ Claude Code → plugin installed (innovestrum-standards@innovestrum)"
   else
     echo "⚠ Claude Code plugin install failed."
     echo "  Once repo is public, run manually:"
