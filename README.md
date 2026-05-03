@@ -13,36 +13,56 @@ A collection of portable [Agent Skills](https://agentskills.io) encoding InnoVes
 
 ## Installation
 
-### Claude Code — 2 commands (recommended)
+> **Private repo** — clone first, then install. All methods below require you to have read access to `InnoVestrum/agent-skills`.
 
-Add this repo as a marketplace, then install the plugin:
+### Step 1 — Clone once (all tools)
+
+```bash
+git clone https://github.com/InnoVestrum/agent-skills.git ~/github/agent-skills
+```
+
+### Step 2a — Claude Code plugin (recommended)
+
+Claude Code can install directly from your local clone:
+
+```bash
+claude plugin install ~/github/agent-skills
+```
+
+Or add as a private marketplace and install by name:
 
 ```
-/plugin marketplace add InnoVestrum/agent-skills
+/plugin marketplace add ~/github/agent-skills
 /plugin install innovestrum-standards@innovestrum
 ```
 
-Skills are fetched directly from GitHub and stay up-to-date via `/plugin update`.
-
-### Windsurf / Codex / Cursor — install script
-
+Update anytime:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/InnoVestrum/agent-skills/main/install.sh | bash
+git -C ~/github/agent-skills pull
+/plugin update innovestrum-standards@innovestrum
 ```
 
-This symlinks all skills into `~/.codeium/windsurf/skills/` (Windsurf global), `~/.claude/skills/` (Claude Code global), and `~/.agents/skills/` (Codex global). Pull the repo and re-run to update.
+### Step 2b — Windsurf / Codex / Cursor
+
+Run the install script from the cloned repo:
+
+```bash
+bash ~/github/agent-skills/install.sh
+```
+
+This symlinks all skills into global skill dirs for Windsurf, Claude Code, and Codex. Re-run after `git pull` to pick up updates.
 
 #### Manual (single tool, workspace scope)
 
 ```bash
 # Windsurf
-cp -r skills/* .windsurf/skills/
+cp -r ~/github/agent-skills/skills/* .windsurf/skills/
 
 # Claude Code
-cp -r skills/* .claude/skills/
+cp -r ~/github/agent-skills/skills/* .claude/skills/
 
 # Codex
-cp -r skills/* .agents/skills/
+cp -r ~/github/agent-skills/skills/* .agents/skills/
 ```
 
 ## Skill Format
