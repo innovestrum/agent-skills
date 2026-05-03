@@ -1,6 +1,15 @@
 # InnoVestrum Agent Skills
 
-A collection of portable [Agent Skills](https://agentskills.io) encoding InnoVestrum's engineering standards. Compatible with **Claude Code**, **Windsurf**, **Codex**, **Cursor**, **GitHub Copilot**, and any tool that supports the [agentskills.io](https://agentskills.io) open standard.
+A collection of portable [Agent Skills](https://agentskills.io) encoding InnoVestrum's engineering standards.
+
+## Compatibility
+
+| Feature | Windsurf | Claude Code | Codex CLI | Cursor | Copilot |
+|---|:---:|:---:|:---:|:---:|:---:|
+| Global rules (`AGENTS.md`) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Skills (`~/.agents/skills/`) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `/reflect-triage` slash command | ❌ | ✅ | ❌ | ❌ | ❌ |
+| `claude-reflect` auto-capture | ❌ | ✅ | ❌ | ❌ | ❌ |
 
 ## Skills
 
