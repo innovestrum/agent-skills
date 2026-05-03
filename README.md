@@ -52,11 +52,20 @@ To update: `git -C ~/github/agent-skills pull && bash ~/github/agent-skills/inst
 
 ### Claude Code — plugin install (independent)
 
-Claude Code supports skills via `~/.agents/skills/` **and** via its plugin system. To use the plugin approach (enables `/plugin update`, versioning, and marketplace browsing):
+Installs skills, MCP servers (github, context7, brave-search), `/reflect-triage` command, and `claude-reflect` — all in one:
 
 ```
 /plugin marketplace add InnoVestrum/agent-skills
 /plugin install innovestrum-standards@innovestrum
+```
+
+Then configure your API tokens when prompted (or run `/plugin config innovestrum-standards`), and **restart Claude Code**.
+
+Verify:
+```
+/plugin list   → innovestrum-standards, claude-reflect
+/mcp           → github, context7, brave-search
+/reflect       → reflect-triage (autocomplete)
 ```
 
 ## Self-Learning Workflow
