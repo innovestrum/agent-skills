@@ -8,15 +8,25 @@ You are helping the user process learnings captured by the **claude-reflect** pl
 
 ## Important context
 
-The user installs global rules from a Git repository (`agent-skills`). The file `~/.claude/CLAUDE.md` is a **symlink** to `<agent-skills>/AGENTS.md`. Discover the repo path dynamically — never hardcode it:
+The agent-skills repo is always at `~/.agents/agent-skills/` (canonical path). Resolve it like this:
 
 ```bash
-readlink -f ~/.claude/CLAUDE.md
-# → /Users/<user>/github/agent-skills/AGENTS.md
-# Repo dir = dirname of that path
+# Preferred: follow the CLAUDE.md symlink (set by install.sh)
+resolved="$(readlink -f ~/.claude/CLAUDE.md 2>/dev/null)"
+if echo "$resolved" | grep -q "agent-skills"; then
+  REPO_DIR="$(dirname "$resolved")"
+else
+  # Fallback: canonical path (plugin-only installs, or no symlink)
+  REPO_DIR="$HOME/.agents/agent-skills"
+fi
 ```
 
-Writes to `~/.claude/CLAUDE.md` therefore land directly inside the agent-skills repo and must be committed and pushed.
+If `~/.agents/agent-skills` doesn't exist either, tell the user to run:
+```bash
+git clone https://github.com/InnoVestrum/agent-skills.git ~/.agents/agent-skills
+```
+
+Writes to `AGENTS.md` inside the repo must be committed and pushed. When `~/.claude/CLAUDE.md` is a symlink, writes via that path land in the repo automatically.
 
 The repo also contains skills under `<repo>/skills/` (managed by the existing `manage-skills` skill) and rules in `AGENTS.md` (managed by the existing `manage-rules` skill). Prefer those skills to do the actual writes when they apply — do not duplicate their logic.
 
@@ -86,7 +96,7 @@ After each successful write, **immediately remove that item** from `~/.claude/le
 If any `[g]` or `[s]` writes touched the agent-skills repo:
 
 ```bash
-cd "$(dirname "$(readlink -f ~/.claude/CLAUDE.md)")"
+cd "$REPO_DIR"   # resolved in step 1 above
 git status --short
 git diff
 ```
