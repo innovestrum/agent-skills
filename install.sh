@@ -75,18 +75,20 @@ install_mcps() {
 
   MCP_SRC="$REPO_DIR/mcp-servers.json"
 
-  # Map of tool → its mcpServers config file (create if missing)
-  declare -A configs=(
-    ["Windsurf"]="$HOME/.codeium/windsurf/mcp_config.json"
-    ["Cursor"]="$HOME/.cursor/mcp.json"
-    ["Codex"]="$HOME/.codex/mcp.json"
+  local tools=("Windsurf" "Cursor" "Codex")
+  local dests=(
+    "$HOME/.codeium/windsurf/mcp_config.json"
+    "$HOME/.cursor/mcp.json"
+    "$HOME/.codex/mcp.json"
   )
 
   local new_servers
   new_servers="$(jq '.mcpServers' "$MCP_SRC")"
 
-  for tool in "${!configs[@]}"; do
-    dest="${configs[$tool]}"
+  local i
+  for i in 0 1 2; do
+    local tool="${tools[$i]}"
+    local dest="${dests[$i]}"
     mkdir -p "$(dirname "$dest")"
 
     if [ -f "$dest" ]; then
@@ -98,7 +100,7 @@ install_mcps() {
     fi
 
     echo "$updated" > "$dest"
-    echo "  merged MCP servers → $dest"
+    echo "  merged MCP servers → $dest ($tool)"
   done
   echo "✓ MCP servers → Windsurf, Cursor, Codex configs"
   echo "  ⚠ Edit token placeholders in the config files above before use"
