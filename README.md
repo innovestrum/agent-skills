@@ -51,14 +51,13 @@ To update: `git -C ~/.agents/agent-skills pull && bash ~/.agents/agent-skills/in
 
 ### Step 2a — Claude Code: plugin install
 
-Adds MCP servers (github, context7, brave-search), `/reflect-triage` command, and `claude-reflect` on top of the base install:
+Adds MCP servers (github, context7, brave-search) and `claude-reflect` on top of the base install:
 
-```
-/plugin marketplace add InnoVestrum/agent-skills
-/plugin install innovestrum-standards@innovestrum
+```bash
+claude plugin install innovestrum-standards@innovestrum
 ```
 
-Configure API tokens when prompted (or `/plugin config innovestrum-standards`), then **restart Claude Code**.
+Configure API tokens when prompted (or `claude plugin config innovestrum-standards`), then **restart Claude Code**.
 
 Verify:
 ```
@@ -111,7 +110,7 @@ When triaging, the rule of thumb is: *"If I deleted my current project tomorrow 
 ### Setup checklist
 
 1. Run `install.sh` (Step 1 above).
-2. In Claude Code, run `/plugin install innovestrum-standards@innovestrum` (Step 2a).
+2. Install the plugin (terminal): `claude plugin install innovestrum-standards@innovestrum`
 3. Restart Claude Code.
 4. Verify: `/reflect` → `reflect-triage` autocompletes; `/mcp` → shows github, context7, brave-search.
 5. (Optional) Extend session retention — add to `~/.claude/settings.json`:
