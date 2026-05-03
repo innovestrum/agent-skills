@@ -13,6 +13,21 @@
   "keywords": ["clean-code", "solid", "oop", "cloud-native", "12-factor", "code-quality", "dry", "kiss", "yagni"],
   "skills": "./skills/",
   "commands": ["./commands/reflect-triage.md"],
+  "mcpServers": "./.claude-plugin/mcp-config.json",
+  "userConfig": {
+    "github_token": {
+      "type": "string",
+      "title": "GitHub Personal Access Token",
+      "description": "Required for GitHub MCP. Create at github.com/settings/tokens (scopes: repo, read:org)",
+      "sensitive": true
+    },
+    "brave_api_key": {
+      "type": "string",
+      "title": "Brave Search API Key",
+      "description": "Optional. Get a free key at brave.com/search/api",
+      "sensitive": true
+    }
+  },
   "dependencies": [
     { "name": "claude-reflect", "marketplace": "claude-reflect-marketplace" }
   ]

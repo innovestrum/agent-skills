@@ -8,6 +8,7 @@ A collection of portable [Agent Skills](https://agentskills.io) encoding InnoVes
 |---|:---:|:---:|:---:|:---:|:---:|
 | Global rules (`AGENTS.md`) | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Skills (`~/.agents/skills/`) | ✅ | ✅ | ✅ | ✅ | ✅ |
+| MCP servers (github, context7, brave) | ✅ | ✅ | ✅ | ✅ | ➖ |
 | `/reflect-triage` slash command | ❌ | ✅ | ❌ | ❌ | ❌ |
 | `claude-reflect` auto-capture | ❌ | ✅ | ❌ | ❌ | ❌ |
 
