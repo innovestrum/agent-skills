@@ -15,8 +15,7 @@
     "github_token": {
       "type": "string",
       "title": "GitHub Personal Access Token",
-      "description": "GitHub PAT for api.githubcopilot.com/mcp. Create at github.com/settings/tokens (scopes: repo, read:org).",
-      "sensitive": true
+      "description": "GitHub PAT for api.githubcopilot.com/mcp. Create at github.com/settings/tokens (scopes: repo, read:org). Note: sensitive:true removed due to Claude Code bug #39455"
     }
   },
   "dependencies": [
