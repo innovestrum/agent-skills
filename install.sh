@@ -60,6 +60,10 @@ install_commands() {
 }
 
 print_claude_plugin_instructions() {
+  # TODO: automate plugin install + userConfig seeding once
+  # https://github.com/anthropics/claude-code/issues/39827 is fixed
+  # (currently `claude plugin install` cannot pass userConfig values,
+  # so the GitHub MCP only wires up via the interactive /plugin flow).
   echo "Claude Code plugin (manual, one-time):"
   echo "  Open Claude Code and run:"
   echo ""
