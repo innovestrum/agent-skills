@@ -59,78 +59,16 @@ install_commands() {
   [ "$count" -gt 0 ] && echo "✓ Slash commands → $CLAUDE_COMMANDS_DIR" || echo "  (no .md files in commands/ — skipping)"
 }
 
-CLAUDE_SETTINGS="$HOME/.claude/settings.json"
-PLUGIN_ID="innovestrum-standards@innovestrum"
-
-configure_github_token() {
-  local token="${GITHUB_TOKEN:-}"
-  local existing=""
-
-  if [ -f "$CLAUDE_SETTINGS" ] && command -v jq >/dev/null 2>&1; then
-    existing=$(jq -r --arg p "$PLUGIN_ID" \
-      '.pluginConfigs[$p].options.github_token // empty' \
-      "$CLAUDE_SETTINGS" 2>/dev/null || echo "")
-  fi
-
-  if [ -n "$existing" ] && [ -z "$token" ]; then
-    echo "  github_token already configured in $CLAUDE_SETTINGS"
-    return 0
-  fi
-
-  if [ -z "$token" ] && [ -t 0 ]; then
-    echo ""
-    echo "  GitHub MCP needs a Personal Access Token."
-    echo "  Create one at https://github.com/settings/tokens (scopes: repo, read:org)"
-    printf "  Paste token (input hidden, Enter to skip): "
-    stty -echo 2>/dev/null || true
-    read -r token || token=""
-    stty echo 2>/dev/null || true
-    echo ""
-  fi
-
-  if [ -z "$token" ]; then
-    echo "  ⚠️  No token provided — github MCP will be unavailable."
-    echo "      To configure later, either:"
-    echo "        • rerun: GITHUB_TOKEN=ghp_... bash $REPO_DIR/install.sh"
-    echo "        • or in Claude Code: /plugin → Installed → innovestrum-standards"
-    return 0
-  fi
-
-  if ! command -v jq >/dev/null 2>&1; then
-    echo "  ⚠️  jq not found — cannot safely merge into $CLAUDE_SETTINGS."
-    echo "      Install jq, or add manually:"
-    echo "        pluginConfigs[\"$PLUGIN_ID\"].options.github_token = \"<token>\""
-    return 0
-  fi
-
-  mkdir -p "$(dirname "$CLAUDE_SETTINGS")"
-  [ -f "$CLAUDE_SETTINGS" ] || echo "{}" > "$CLAUDE_SETTINGS"
-  local tmp
-  tmp="$(mktemp)"
-  jq --arg p "$PLUGIN_ID" --arg t "$token" \
-    '.pluginConfigs[$p].options.github_token = $t' \
-    "$CLAUDE_SETTINGS" > "$tmp" && mv "$tmp" "$CLAUDE_SETTINGS"
-  chmod 600 "$CLAUDE_SETTINGS"
-  echo "  ✓ github_token written to $CLAUDE_SETTINGS (chmod 600)"
-}
-
-install_claude_plugin() {
-  if ! command -v claude >/dev/null 2>&1; then
-    echo "  (claude CLI not found — skipping plugin install)"
-    echo "    Install Claude Code, then run: claude plugin install $PLUGIN_ID"
-    return 0
-  fi
-  claude plugin marketplace add InnoVestrum/agent-skills 2>/dev/null || true
-
-  configure_github_token
-
-  # Reinstall if already installed to pick up MCP config changes
-  if claude plugin list 2>/dev/null | grep -q "innovestrum-standards"; then
-    echo "  reinstalling plugin to apply changes..."
-    claude plugin uninstall "$PLUGIN_ID" 2>/dev/null || true
-  fi
-  claude plugin install "$PLUGIN_ID"
-  echo "✓ Claude Code plugin installed (MCPs + claude-reflect)"
+print_claude_plugin_instructions() {
+  echo "Claude Code plugin (manual, one-time):"
+  echo "  Open Claude Code and run:"
+  echo ""
+  echo "    /plugin marketplace add InnoVestrum/agent-skills"
+  echo "    /plugin install innovestrum-standards@innovestrum"
+  echo ""
+  echo "  You will be prompted for a GitHub Personal Access Token"
+  echo "  (scopes: repo, read:org — create at https://github.com/settings/tokens)."
+  echo "  This is the only path that wires up the GitHub MCP correctly."
 }
 
 install_canonical_link() {
@@ -159,7 +97,7 @@ install_commands
 echo ""
 install_canonical_link
 echo ""
-install_claude_plugin
+print_claude_plugin_instructions
 echo ""
 echo "Done. Restart your agent to pick up new skills and commands."
 echo "  Other tools: ask your agent to invoke the 'setup-mcps' skill for guided MCP setup."
