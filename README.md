@@ -82,12 +82,23 @@ Cloning is required — the self-learning loop (`/reflect-triage`) commits and p
 
 To update: `git -C ~/.agents/agent-skills pull && bash ~/.agents/agent-skills/install.sh`
 
+**GitHub token configuration.** The plugin's GitHub MCP needs a Personal Access Token (`repo`, `read:org` scopes from [github.com/settings/tokens](https://github.com/settings/tokens)). The installer handles it three ways:
+
+1. **Env var (CI / non-interactive):**
+   ```bash
+   GITHUB_TOKEN=ghp_xxx bash ~/.agents/agent-skills/install.sh
+   ```
+2. **Interactive prompt:** if `GITHUB_TOKEN` is unset and stdin is a TTY, the installer prompts you (input hidden) and writes the token to `~/.claude/settings.json` under `pluginConfigs."innovestrum-standards@innovestrum".options.github_token`.
+3. **Defer:** press Enter to skip; configure later in Claude Code via `/plugin → Installed → innovestrum-standards`.
+
+> ℹ️  `claude plugin install` does **not** accept inline `userConfig` flags — values are read from `~/.claude/settings.json` (seeded by the installer) or via the interactive `/plugin` UI. `jq` is required for the installer to safely merge the token into existing settings.
+
 **Manual plugin install (Claude Code):**
 ```bash
 claude plugin marketplace add InnoVestrum/agent-skills
 claude plugin install innovestrum-standards@innovestrum
+# then in Claude Code: /plugin → Installed → innovestrum-standards
 ```
-Then configure API tokens (`claude plugin config innovestrum-standards`) and restart Claude Code.
 
 **MCP setup for other tools:** after install, ask your agent *"set up MCPs"* — it will invoke the `setup-mcps` skill.
 

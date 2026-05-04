@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "innovestrum-standards",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "InnoVestrum engineering standards: clean-code, OOP/SOLID/GRASP, cloud-native 12-factor, and code quality metrics",
   "author": {
     "name": "InnoVestrum",
