@@ -1,10 +1,7 @@
 {
   "github": {
     "type": "http",
-    "url": "https://api.githubcopilot.com/mcp",
-    "headers": {
-      "Authorization": "Bearer ${user_config.github_token}"
-    }
+    "url": "https://api.githubcopilot.com/mcp/"
   },
   "context7": {
     "command": "npx",

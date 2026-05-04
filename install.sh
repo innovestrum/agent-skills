@@ -66,6 +66,11 @@ install_claude_plugin() {
     return 0
   fi
   claude plugin marketplace add InnoVestrum/agent-skills 2>/dev/null || true
+  # Reinstall if already installed to pick up MCP config changes
+  if claude plugin list 2>/dev/null | grep -q "innovestrum-standards"; then
+    echo "  reinstalling plugin to apply changes..."
+    claude plugin uninstall innovestrum-standards@innovestrum 2>/dev/null || true
+  fi
   claude plugin install innovestrum-standards@innovestrum
   echo "✓ Claude Code plugin installed (MCPs + claude-reflect)"
 }
