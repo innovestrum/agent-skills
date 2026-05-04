@@ -12,6 +12,12 @@
   "license": "MIT",
   "keywords": ["clean-code", "solid", "oop", "cloud-native", "12-factor", "code-quality", "dry", "kiss", "yagni"],
   "userConfig": {
+    "github_token": {
+      "type": "string",
+      "title": "GitHub Personal Access Token",
+      "description": "GitHub PAT for api.githubcopilot.com/mcp. Create at github.com/settings/tokens (scopes: repo, read:org).",
+      "sensitive": true
+    },
     "brave_api_key": {
       "type": "string",
       "title": "Brave Search API Key",
