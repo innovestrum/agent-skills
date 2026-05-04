@@ -73,6 +73,10 @@ install_claude_plugin() {
   fi
   claude plugin install innovestrum-standards@innovestrum
   echo "✓ Claude Code plugin installed (MCPs + claude-reflect)"
+  echo ""
+  echo "⚠️  Configure GitHub token:"
+  echo "   1. Get PAT from github.com/settings/tokens (scopes: repo, read:org)"
+  echo "   2. Run '/mcp' in Claude Code → select 'github' → enter token"
 }
 
 install_canonical_link() {
