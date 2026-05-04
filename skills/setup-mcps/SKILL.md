@@ -10,19 +10,21 @@ metadata:
 
 Detect the user's tool, then give the exact install command for each MCP.
 
-**Servers:**
+**Plugin Servers (auto-installed):**
 | Name | Package | Token needed |
 |---|---|---|
 | `context7` | `@upstash/context7-mcp` | No |
-| `github` | remote `https://api.githubcopilot.com/mcp` | GitHub PAT |
 | `brave-search` | `@anthropic/mcp-server-brave-search` | Brave API key |
 
-**Claude Code** — already included in the plugin. If missing:
+**GitHub** — uses Claude Code's native OAuth (no plugin setup needed)
+
+**Claude Code** — `context7` and `brave-search` auto-install with the plugin. If missing:
 ```bash
 claude mcp add-json context7 '{"command":"npx","args":["-y","@upstash/context7-mcp"]}'
-claude mcp add-json github '{"type":"http","url":"https://api.githubcopilot.com/mcp","headers":{"Authorization":"Bearer YOUR_PAT"}}'
 claude mcp add-json brave-search '{"command":"npx","args":["-y","@anthropic/mcp-server-brave-search"],"env":{"BRAVE_API_KEY":"YOUR_KEY"}}'
 ```
+
+GitHub tools work via native OAuth — no manual MCP setup needed.
 
 **Windsurf** — merge into `~/.codeium/windsurf/mcp_config.json`:
 ```json

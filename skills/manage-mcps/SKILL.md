@@ -10,16 +10,16 @@ metadata:
 
 MCP servers are declared in two places depending on the target:
 
-| Target | File |
-|---|---|
-| Claude Code plugin | `~/.agents/agent-skills/.claude-plugin/mcp-config.json` |
-| Windsurf | `~/.codeium/windsurf/mcp_config.json` |
-| Cursor | `~/.cursor/mcp.json` |
-| Codex | `~/.codex/mcp.json` |
+| Target | File | Format |
+|---|---|---|
+| Claude Code plugin | `~/.agents/agent-skills/.mcp.json` | Flat (`{"name": {...}}`) |
+| Windsurf | `~/.codeium/windsurf/mcp_config.json` | Wrapped (`{"mcpServers": {"name": {...}}}`) |
+| Cursor | `~/.cursor/mcp.json` | Wrapped |
+| Codex | `~/.codex/mcp.json` | Wrapped |
 
 **Add to Claude Code plugin:**
 
-Edit `~/.agents/agent-skills/.claude-plugin/mcp-config.json` — add an entry under `mcpServers`:
+Edit `~/.agents/agent-skills/.mcp.json` — add a flat entry (no `mcpServers` wrapper):
 ```json
 "<name>": {
   "command": "npx",

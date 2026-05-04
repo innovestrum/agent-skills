@@ -62,7 +62,8 @@ flowchart TD
 |---|:---:|:---:|:---:|:---:|:---:|
 | Global rules (`AGENTS.md`) | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Skills (`~/.agents/skills/`) | ✅ | ✅ | ✅ | ✅ | ✅ |
-| MCP servers (github, context7, brave) | 🔧 | ✅ | 🔧 | 🔧 | ➖ |
+| MCP servers (context7, brave-search) | 🔧 | ✅ | 🔧 | 🔧 | ➖ |
+| GitHub (native OAuth) | ➖ | ✅ | ➖ | ➖ | ➖ |
 | `/reflect-triage` slash command | ❌ | ✅ | ❌ | ❌ | ❌ |
 | `claude-reflect` auto-capture | ❌ | ✅ | ❌ | ❌ | ❌ |
 
