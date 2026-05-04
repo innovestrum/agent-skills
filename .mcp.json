@@ -1,13 +1,15 @@
 {
-  "github": {
-    "type": "http",
-    "url": "https://api.githubcopilot.com/mcp/",
-    "headers": {
-      "Authorization": "Bearer ${user_config.github_token}"
+  "mcpServers": {
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${user_config.github_token}"
+      }
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
     }
-  },
-  "context7": {
-    "command": "npx",
-    "args": ["-y", "@upstash/context7-mcp"]
   }
 }
