@@ -76,8 +76,15 @@ install_claude_plugin() {
 }
 
 install_canonical_link() {
+  # Skip if repo is already at canonical location
+  if [ "$REPO_DIR" = "$CANONICAL_REPO" ]; then
+    echo "  (repo already at canonical path — skipping)"
+    return 0
+  fi
   mkdir -p "$(dirname "$CANONICAL_REPO")"
-  [ -L "$CANONICAL_REPO" ] && rm "$CANONICAL_REPO"
+  if [ -e "$CANONICAL_REPO" ] || [ -L "$CANONICAL_REPO" ]; then
+    rm -rf "$CANONICAL_REPO"
+  fi
   ln -s "$REPO_DIR" "$CANONICAL_REPO"
   echo "✓ Repo → $CANONICAL_REPO (canonical path for skills)"
 }
