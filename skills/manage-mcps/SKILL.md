@@ -8,43 +8,15 @@ metadata:
   repo: https://github.com/InnoVestrum/agent-skills
 ---
 
-MCP servers are declared in two places depending on the target:
-
-| Target | File | Format |
+| Target | File | Wrapper |
 |---|---|---|
-| Claude Code plugin | `~/.agents/agent-skills/.mcp.json` | Flat (`{"name": {...}}`) |
-| Windsurf | `~/.codeium/windsurf/mcp_config.json` | Wrapped (`{"mcpServers": {"name": {...}}}`) |
-| Cursor | `~/.cursor/mcp.json` | Wrapped |
-| Codex | `~/.codex/mcp.json` | Wrapped |
+| Claude Code plugin | `~/.agents/agent-skills/.mcp.json` | **flat** (`{"name": {...}}`) |
+| Windsurf | `~/.codeium/windsurf/mcp_config.json` | `{"mcpServers": {...}}` |
+| Cursor | `~/.cursor/mcp.json` | `{"mcpServers": {...}}` |
+| Codex | `~/.codex/mcp.json` | `{"mcpServers": {...}}` |
 
-**Add to Claude Code plugin:**
+**Gotchas:**
 
-Edit `~/.agents/agent-skills/.mcp.json` — add a flat entry (no `mcpServers` wrapper):
-```json
-"<name>": {
-  "command": "npx",
-  "args": ["-y", "<package>"],
-  "env": { "API_KEY": "${user_config.<key>}" }
-}
-```
-If the server needs a user token, add a corresponding entry to `userConfig` in `.claude-plugin/plugin.json`.
-
-Then commit and push:
-```bash
-git -C ~/.agents/agent-skills add -A && git -C ~/.agents/agent-skills commit -m "feat: add <name> MCP" && git -C ~/.agents/agent-skills push
-```
-
-**Add to Windsurf / Cursor / Codex:**
-
-Merge directly into the tool's config file — ask the user which tool, then add the `mcpServers` entry. For remote HTTP servers:
-```json
-"<name>": { "type": "http", "url": "<url>", "headers": { "Authorization": "Bearer <token>" } }
-```
-For stdio servers:
-```json
-"<name>": { "command": "npx", "args": ["-y", "<package>"], "env": { "KEY": "value" } }
-```
-
-**Remove:** delete the entry from the relevant config file. For plugin changes, commit and push.
-
-**Verify (Claude Code):** `/mcp` lists active servers. Restart Claude Code after any plugin config change.
+- The plugin file is the **only** flat-shape one. Pasting a `mcpServers`-wrapped block there silently no-ops.
+- Plugin servers needing user tokens require a matching `userConfig` entry in `.claude-plugin/plugin.json` (`${user_config.<key>}` template).
+- Tool restart required after edits. Verify with `/mcp` (Claude Code) or the tool's MCP panel.

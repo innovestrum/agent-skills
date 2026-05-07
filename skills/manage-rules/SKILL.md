@@ -8,16 +8,10 @@ metadata:
   repo: https://github.com/InnoVestrum/agent-skills
 ---
 
-Single source: `~/.agents/agent-skills/AGENTS.md` — symlinked to Windsurf, Claude Code, Codex, Amp, and XDG path. Edit once, applies everywhere.
+Single source: `~/.agents/agent-skills/AGENTS.md`. Symlinked into Windsurf / Claude Code / Codex / Amp / XDG paths by `install.sh` — edit once, applies everywhere.
 
-If `~/.agents/agent-skills` doesn't exist, clone it first:
-```bash
-git clone https://github.com/InnoVestrum/agent-skills.git ~/.agents/agent-skills
-```
+**Pointers:**
 
-**Add/Edit/Delete:** modify `~/.agents/agent-skills/AGENTS.md` directly, then commit.
-```bash
-git -C ~/.agents/agent-skills add AGENTS.md && git -C ~/.agents/agent-skills commit -m "feat: update rules" && git -C ~/.agents/agent-skills push
-```
-
-**Rules:** boundaries over aspirations ("always ask before hardcoding" not "write clean code"). Tool-agnostic only; domain depth goes in Skills.
+- Rules are **boundaries**, not aspirations: "always ask before hardcoding", not "write clean code". If it can't be checked, it doesn't belong here.
+- Tool-agnostic only. Anything tool- or domain-specific goes in a Skill, not here.
+- Project-specific rules belong in the project's own `AGENTS.md`, not the global one.

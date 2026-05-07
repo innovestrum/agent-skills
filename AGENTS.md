@@ -18,3 +18,9 @@
 ## Cloud & Infrastructure
 - Follow 12-factor app and cloud-native principles
 - Prefer Alpine-based images for containers
+
+## Documentation & Authoring
+- Applies to skills, slash commands, AGENTS.md, READMEs, ADRs, project briefings
+- Write only **gaps** (what's missing where the agent would expect it), **gotchas** (silent failures, paywalls, exit-code lies, auto-behaviors), and **pointers** (use X here, not Y)
+- Cut anything a competent agent already knows: generic CLI/API syntax, flag enums, obvious patterns, restated rules from this file
+- Read like a senior engineer's terse handover note, not a tutorial; aim short and re-cut after drafting
