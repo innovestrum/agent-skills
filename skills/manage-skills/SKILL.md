@@ -32,4 +32,14 @@ rm -rf ~/.agents/agent-skills/skills/<name>
 git -C ~/.agents/agent-skills add -A && git -C ~/.agents/agent-skills commit -m "feat: remove <name> skill" && git -C ~/.agents/agent-skills push
 ```
 
-**Writing skills:** `description` = one-sentence activation trigger. Be laconic — omit what the agent already knows. Domain depth only; global rules go in `AGENTS.md`.
+**Writing skills:** `description` = one-sentence activation trigger. Domain depth only; global rules go in `AGENTS.md`.
+
+**Keep only what the agent can't infer.** Before writing each line, ask: *would a competent agent already know this?* If yes, drop it. Specifically drop:
+
+- Generic CLI/API syntax, flag enumerations, standard usage examples
+- Obvious patterns (loops, retries, basic shell idioms)
+- Restated rules from `AGENTS.md`
+
+**Keep:** gaps (what's *not* available where the agent would expect it), gotchas (silent failures, paywalls, auto-behaviors, exit-code lies), and pointers (use X here, not Y).
+
+A good skill reads like a senior engineer's terse handover note, not a tutorial. After drafting, re-read and cut every line that isn't a gap, gotcha, or pointer. If it shrinks below ~30 lines, that's usually correct.
