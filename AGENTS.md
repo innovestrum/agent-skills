@@ -14,6 +14,7 @@
 ## Process
 - Always ask before hardcoding a value to fix a bug or issue
 - Keep README.md updated as the project evolves
+- Tag every temporary doc passage or code workaround with `TODO(ref):` and its removal trigger — the TODO and what it guards must be removable in one cut when the trigger fires
 
 ## Cloud & Infrastructure
 - Follow 12-factor app and cloud-native principles
