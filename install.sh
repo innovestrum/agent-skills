@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# On Git Bash / MSYS / Cygwin, `ln -s` silently makes copies unless this is set.
+case "$(uname -s 2>/dev/null || true)" in
+  MINGW*|MSYS*|CYGWIN*)
+    export MSYS=winsymlinks:nativestrict
+    export CYGWIN=winsymlinks:nativestrict
+    ;;
+esac
+
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="$REPO_DIR/skills"
 COMMANDS_DIR="$REPO_DIR/commands"
@@ -75,6 +83,28 @@ print_claude_plugin_instructions() {
   echo "  This is the only path that wires up the GitHub MCP correctly."
 }
 
+preflight_symlinks() {
+  local tmpdir target link
+  tmpdir="$(mktemp -d)"
+  target="$tmpdir/target"; link="$tmpdir/link"
+  : > "$target"
+  if ! ln -s "$target" "$link" 2>/dev/null || [ ! -L "$link" ]; then
+    rm -rf "$tmpdir"
+    cat >&2 <<'EOF'
+✗ Cannot create symlinks on this system.
+
+Windows (Git Bash / MSYS / Cygwin):
+  - Enable Developer Mode: Settings → Privacy & security → For developers → Developer Mode
+  - OR run this script from an elevated (Administrator) shell.
+  - Native PowerShell users: run install.ps1 instead.
+
+macOS / Linux: check filesystem permissions or mount options.
+EOF
+    exit 1
+  fi
+  rm -rf "$tmpdir"
+}
+
 install_canonical_link() {
   # Skip if repo is already at canonical location
   if [ "$REPO_DIR" = "$CANONICAL_REPO" ]; then
@@ -93,6 +123,7 @@ echo "InnoVestrum Agent Skills installer"
 echo "Source: $REPO_DIR"
 echo ""
 
+preflight_symlinks
 install_skills
 echo ""
 install_agents_md

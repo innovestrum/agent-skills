@@ -71,16 +71,36 @@ flowchart TD
 
 ## Installation
 
+### macOS / Linux / Git Bash
+
 ```bash
 git clone https://github.com/InnoVestrum/agent-skills.git ~/.agents/agent-skills
 bash ~/.agents/agent-skills/install.sh
 ```
 
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/InnoVestrum/agent-skills.git $HOME\.agents\agent-skills
+powershell -ExecutionPolicy Bypass -File $HOME\.agents\agent-skills\install.ps1
+```
+
+> Requires **Developer Mode** (Settings → Privacy & security → For developers) *or* an elevated PowerShell — Windows blocks symlink creation otherwise. Both installers pre-flight this and abort with instructions if it's missing.
+
 Cloning is required — the self-learning loop (`/reflect-triage`) commits and pushes skill and rule changes back to this repo. A `curl | bash` approach would have no git history to push to.
 
-**What `install.sh` does:** symlinks skills, global rules, and slash commands; creates the canonical repo symlink. It does **not** install the Claude Code plugin — that step is manual (see below).
+**What the installer does:** symlinks skills, global rules, and slash commands; creates the canonical repo symlink. It does **not** install the Claude Code plugin — that step is manual (see below).
 
-To update: `git -C ~/.agents/agent-skills pull && bash ~/.agents/agent-skills/install.sh`
+To update:
+
+```bash
+# bash
+git -C ~/.agents/agent-skills pull && bash ~/.agents/agent-skills/install.sh
+```
+```powershell
+# PowerShell
+git -C $HOME\.agents\agent-skills pull; & $HOME\.agents\agent-skills\install.ps1
+```
 
 ### Claude Code plugin (manual)
 
