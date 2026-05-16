@@ -89,7 +89,7 @@ powershell -ExecutionPolicy Bypass -File $HOME\.agents\agent-skills\install.ps1
 
 Cloning is required — the self-learning loop (`/reflect-triage`) commits and pushes skill and rule changes back to this repo. A `curl | bash` approach would have no git history to push to.
 
-**What the installer does:** symlinks skills into both `~/.agents/skills/` (cross-tool) and `~/.claude/skills/` (Claude Code user-level), plus global rules, slash commands, and the canonical repo symlink. After running it, skills and `/reflect-triage` work in Claude Code immediately — **no plugin install required for skills**. The Claude Code plugin step below is only needed if you also want the bundled MCPs (context7, brave-search, GitHub) and `claude-reflect` auto-capture.
+**What the installer does:** symlinks skills, global rules, and slash commands; creates the canonical repo symlink. It does **not** install the Claude Code plugin — that step is manual (see below).
 
 To update:
 
@@ -102,9 +102,7 @@ git -C ~/.agents/agent-skills pull && bash ~/.agents/agent-skills/install.sh
 git -C $HOME\.agents\agent-skills pull; & $HOME\.agents\agent-skills\install.ps1
 ```
 
-### Claude Code plugin (optional — for MCPs only)
-
-Skills and slash commands are already active after `install.sh` / `install.ps1`. Install the plugin only if you want the bundled MCPs (context7, brave-search, GitHub) and the `claude-reflect` self-learning loop.
+### Claude Code plugin (manual)
 
 Open Claude Code and run:
 
