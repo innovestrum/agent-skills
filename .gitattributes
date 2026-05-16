@@ -1,0 +1,6 @@
+# Default: let Git auto-detect text vs binary, normalize to LF in the repo.
+* text=auto eol=lf
+
+# Pin line endings for shell-sensitive files regardless of core.autocrlf.
+*.sh   text eol=lf
+*.ps1  text eol=crlf
