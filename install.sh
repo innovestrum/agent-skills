@@ -13,20 +13,22 @@ REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="$REPO_DIR/skills"
 COMMANDS_DIR="$REPO_DIR/commands"
 AGENTS_MD="$REPO_DIR/AGENTS.md"
-TARGET_DIR="$HOME/.agents/skills"
+AGENTS_SKILLS_DIR="$HOME/.agents/skills"    # cross-tool convention (Windsurf, Codex, Cursor)
+CLAUDE_SKILLS_DIR="$HOME/.claude/skills"    # Claude Code user-level skills
 CANONICAL_REPO="$HOME/.agents/agent-skills"
 CLAUDE_COMMANDS_DIR="$HOME/.claude/commands"
 
-install_skills() {
-  mkdir -p "$TARGET_DIR"
+install_skills_into() {
+  local target_dir="$1" label="$2"
+  mkdir -p "$target_dir"
   for skill_path in "$SKILLS_DIR"/*/; do
     skill_name="$(basename "$skill_path")"
-    link="$TARGET_DIR/$skill_name"
+    link="$target_dir/$skill_name"
     [ -L "$link" ] && rm "$link"
     ln -s "$skill_path" "$link"
     echo "  linked $skill_name"
   done
-  echo "✓ Skills → $TARGET_DIR"
+  echo "✓ Skills → $target_dir ($label)"
 }
 
 install_agents_md() {
@@ -124,7 +126,9 @@ echo "Source: $REPO_DIR"
 echo ""
 
 preflight_symlinks
-install_skills
+install_skills_into "$AGENTS_SKILLS_DIR" "cross-tool"
+echo ""
+install_skills_into "$CLAUDE_SKILLS_DIR"  "Claude Code"
 echo ""
 install_agents_md
 echo ""

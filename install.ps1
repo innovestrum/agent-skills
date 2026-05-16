@@ -7,7 +7,8 @@ $RepoDir          = $PSScriptRoot
 $SkillsDir        = Join-Path $RepoDir 'skills'
 $CommandsDir      = Join-Path $RepoDir 'commands'
 $AgentsMd         = Join-Path $RepoDir 'AGENTS.md'
-$TargetDir        = Join-Path $HOME '.agents\skills'
+$AgentsSkillsDir  = Join-Path $HOME '.agents\skills'    # cross-tool convention (Windsurf, Codex, Cursor)
+$ClaudeSkillsDir  = Join-Path $HOME '.claude\skills'    # Claude Code user-level skills
 $CanonicalRepo    = Join-Path $HOME '.agents\agent-skills'
 $ClaudeCommands   = Join-Path $HOME '.claude\commands'
 
@@ -42,13 +43,14 @@ function Test-SymlinkCapability {
     }
 }
 
-function Install-Skills {
+function Install-SkillsInto {
+    param([string]$TargetDir, [string]$Label)
     if (-not (Test-Path -LiteralPath $TargetDir)) { New-Item -ItemType Directory -Path $TargetDir -Force | Out-Null }
     Get-ChildItem -LiteralPath $SkillsDir -Directory | ForEach-Object {
         New-Symlink -Link (Join-Path $TargetDir $_.Name) -Target $_.FullName
         Write-Host "  linked $($_.Name)"
     }
-    Write-Host "OK Skills -> $TargetDir"
+    Write-Host "OK Skills -> $TargetDir ($Label)"
 }
 
 function Install-AgentsMd {
@@ -111,7 +113,8 @@ Write-Host "Source: $RepoDir"
 Write-Host ""
 
 Test-SymlinkCapability
-Install-Skills;          Write-Host ""
+Install-SkillsInto $AgentsSkillsDir 'cross-tool';  Write-Host ""
+Install-SkillsInto $ClaudeSkillsDir 'Claude Code'; Write-Host ""
 Install-AgentsMd;        Write-Host ""
 Install-Commands;        Write-Host ""
 Install-CanonicalLink;   Write-Host ""
