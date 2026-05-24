@@ -25,3 +25,10 @@
 - Write only **gaps** (what's missing where the agent would expect it), **gotchas** (silent failures, paywalls, exit-code lies, auto-behaviors), and **pointers** (use X here, not Y)
 - Cut anything a competent agent already knows: generic CLI/API syntax, flag enums, obvious patterns, restated rules from this file
 - Read like a senior engineer's terse handover note, not a tutorial; aim short and re-cut after drafting
+
+## Diagrams in Markdown
+- **Default to Mermaid** in fenced ` ```mermaid ` blocks — renders natively on GitHub and adapts to dark themes.
+- Use **PlantUML only for UML class / abstraction-layer views** Mermaid can't represent.
+- **Never `skinparam backgroundColor transparent`** — invisible on dark themes. Use an explicit light fill + dark text colour.
+- Hardcode fills only when colour carries meaning; pick values that survive both themes.
+- **Style for readability, not decoration.** Apply a consistent palette across a doc set, give related diagrams the same look, and reserve colour for semantic groups (clusters, stages, terminals, decisions) — not every node.
