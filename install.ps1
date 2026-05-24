@@ -10,6 +10,7 @@ $AgentsMd         = Join-Path $RepoDir 'AGENTS.md'
 $TargetDir        = Join-Path $HOME '.agents\skills'
 $CanonicalRepo    = Join-Path $HOME '.agents\agent-skills'
 $ClaudeCommands   = Join-Path $HOME '.claude\commands'
+$PluginMarketplace = Join-Path $HOME '.claude\plugins\marketplaces\innovestrum'
 
 function New-Symlink {
     param([string]$Link, [string]$Target)
@@ -90,6 +91,23 @@ function Install-CanonicalLink {
     Write-Host "OK Repo -> $CanonicalRepo (canonical path for skills)"
 }
 
+function Update-PluginMarketplace {
+    # The Claude Code plugin marketplace clone is a *separate* checkout of this
+    # repo; new skills pushed here are invisible to the plugin until that clone
+    # also pulls. Keep them in lockstep on every install.
+    $gitDir = Join-Path $PluginMarketplace '.git'
+    if (-not (Test-Path -LiteralPath $gitDir)) {
+        Write-Host "  (plugin marketplace clone not present - skipping; install via /plugin marketplace add)"
+        return
+    }
+    $proc = Start-Process -FilePath 'git' -ArgumentList @('-C', $PluginMarketplace, 'pull', '--ff-only', '--quiet') -NoNewWindow -Wait -PassThru
+    if ($proc.ExitCode -eq 0) {
+        Write-Host "OK Plugin marketplace clone refreshed -> $PluginMarketplace"
+    } else {
+        Write-Host "!  Plugin marketplace clone present but pull failed - run: git -C `"$PluginMarketplace`" pull"
+    }
+}
+
 function Show-ClaudePluginInstructions {
     # TODO: automate plugin install + userConfig seeding once
     # https://github.com/anthropics/claude-code/issues/39827 is fixed
@@ -114,7 +132,8 @@ Test-SymlinkCapability
 Install-Skills;          Write-Host ""
 Install-AgentsMd;        Write-Host ""
 Install-Commands;        Write-Host ""
-Install-CanonicalLink;   Write-Host ""
+Install-CanonicalLink;       Write-Host ""
+Update-PluginMarketplace;    Write-Host ""
 Show-ClaudePluginInstructions
 Write-Host ""
 Write-Host "Done. Restart your agent to pick up new skills and commands."

@@ -16,6 +16,7 @@ AGENTS_MD="$REPO_DIR/AGENTS.md"
 TARGET_DIR="$HOME/.agents/skills"
 CANONICAL_REPO="$HOME/.agents/agent-skills"
 CLAUDE_COMMANDS_DIR="$HOME/.claude/commands"
+PLUGIN_MARKETPLACE="$HOME/.claude/plugins/marketplaces/innovestrum"
 
 install_skills() {
   mkdir -p "$TARGET_DIR"
@@ -119,6 +120,21 @@ install_canonical_link() {
   echo "✓ Repo → $CANONICAL_REPO (canonical path for skills)"
 }
 
+refresh_plugin_marketplace() {
+  # The Claude Code plugin marketplace clone is a *separate* checkout of this
+  # repo; new skills pushed here are invisible to the plugin until that clone
+  # also pulls. Keep them in lockstep on every install.
+  if [ ! -d "$PLUGIN_MARKETPLACE/.git" ]; then
+    echo "  (plugin marketplace clone not present — skipping; install via /plugin marketplace add)"
+    return 0
+  fi
+  if git -C "$PLUGIN_MARKETPLACE" pull --ff-only --quiet 2>/dev/null; then
+    echo "✓ Plugin marketplace clone refreshed → $PLUGIN_MARKETPLACE"
+  else
+    echo "⚠ Plugin marketplace clone present but pull failed — run: git -C \"$PLUGIN_MARKETPLACE\" pull"
+  fi
+}
+
 echo "InnoVestrum Agent Skills installer"
 echo "Source: $REPO_DIR"
 echo ""
@@ -131,6 +147,8 @@ echo ""
 install_commands
 echo ""
 install_canonical_link
+echo ""
+refresh_plugin_marketplace
 echo ""
 print_claude_plugin_instructions
 echo ""

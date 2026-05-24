@@ -89,7 +89,7 @@ powershell -ExecutionPolicy Bypass -File $HOME\.agents\agent-skills\install.ps1
 
 Cloning is required — the self-learning loop (`/reflect-triage`) commits and pushes skill and rule changes back to this repo. A `curl | bash` approach would have no git history to push to.
 
-**What the installer does:** symlinks skills, global rules, and slash commands; creates the canonical repo symlink. It does **not** install the Claude Code plugin — that step is manual (see below).
+**What the installer does:** symlinks skills, global rules, and slash commands; creates the canonical repo symlink. If the Claude Code plugin marketplace clone (`~/.claude/plugins/marketplaces/innovestrum/`) is present, it also runs `git pull --ff-only` there so newly-pushed skills become visible to the plugin without a separate manual update. It does **not** install the Claude Code plugin — that step is still manual (see below).
 
 To update:
 
