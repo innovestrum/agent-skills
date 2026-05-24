@@ -138,6 +138,5 @@ Show-ClaudePluginInstructions
 Write-Host ""
 Write-Host "Done. Restart your agent to pick up new skills and commands."
 Write-Host "  Other tools: ask your agent to invoke the 'setup-mcps' skill for guided MCP setup."
-Write-Host "Weekly ritual: run /reflect-triage in Claude Code to process captured learnings."
 Write-Host ""
 Write-Host "To update: git -C `"$RepoDir`" pull; & `"$RepoDir\install.ps1`""

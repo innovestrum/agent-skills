@@ -154,6 +154,5 @@ print_claude_plugin_instructions
 echo ""
 echo "Done. Restart your agent to pick up new skills and commands."
 echo "  Other tools: ask your agent to invoke the 'setup-mcps' skill for guided MCP setup."
-echo "Weekly ritual: run /reflect-triage in Claude Code to process captured learnings."
 echo ""
 echo "To update: git -C \"$REPO_DIR\" pull && bash \"$REPO_DIR/install.sh\""
