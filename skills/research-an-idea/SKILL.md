@@ -1,11 +1,6 @@
 ---
 name: research-an-idea
-description: Activate before researching an idea, market, or open question — validating an idea, sizing a market, comparing competitors, pricing, channels, feasibility, legal or store policy — and before re-running such research. Brief → parallel cited tracks → red team → synthesis; findings only, the owner decides.
-license: MIT
-metadata:
-  author: InnoVestrum
-  version: "1.0"
-  repo: https://github.com/InnoVestrum/agent-skills
+description: Activate before researching an idea, market, or open question — validating an idea, sizing a market, comparing competitors, pricing, channels, feasibility, legal or store policy — and before re-running such research.
 ---
 
 For research that feeds a decision someone owns; a single factual lookup doesn't need this pipeline. An improvised run answers the loud dimensions and silently drops the quiet ones until the owner asks — the brief exists so a dimension is dropped on purpose, never by omission.
