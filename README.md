@@ -1,126 +1,64 @@
 # InnoVestrum Agent Skills
 
-Portable [Agent Skills](https://agentskills.io) and global engineering rules for InnoVestrum — shared across every AI coding tool you use.
+One plugin for Claude Code and Codex: the InnoVestrum engineering standards ([`AGENTS.md`](AGENTS.md)) loaded into every session and subagent, plus a few skills.
 
-## Architecture
+## Install
 
-```mermaid
-%%{init: {"theme": "base", "themeVariables": {
-  "background": "#ffffff",
-  "primaryColor": "#f0f4ff",
-  "primaryTextColor": "#1e1e2e",
-  "primaryBorderColor": "#c0c8e8",
-  "lineColor": "#94a3b8",
-  "clusterBkg": "#f8faff",
-  "clusterBorder": "#c0c8e8",
-  "titleColor": "#64748b",
-  "edgeLabelBackground": "#ffffff",
-  "fontFamily": "ui-sans-serif, system-ui, sans-serif",
-  "fontSize": "13px"
-}}}%%
-flowchart TD
-    classDef repo    fill:#ede9fe,stroke:#7c3aed,color:#4c1d95,font-weight:600
-    classDef install fill:#f0fdf4,stroke:#16a34a,color:#14532d
-    classDef tool    fill:#eff6ff,stroke:#2563eb,color:#1e3a8a
-
-    REPO(["🗂  agent-skills · github.com/InnoVestrum"]):::repo
-
-    subgraph INSTALL ["  ⚙  one-time install  "]
-        direction LR
-        I1("skills & rules"):::install
-        I2("slash commands"):::install
-        I3("MCPs"):::install
-    end
-
-    subgraph TOOLS ["  🛠  AI tools  "]
-        direction LR
-        WS("Windsurf"):::tool
-        CC("Claude Code"):::tool
-        CX("Cursor · Codex · Copilot"):::tool
-    end
-
-    REPO -->|"git clone + install.sh"| INSTALL
-    I1 --> WS & CC & CX
-    I2 & I3 --> CC
-```
-
-## Compatibility
-
-| Feature | Windsurf | Claude Code | Codex CLI | Cursor | Copilot |
-|---|:---:|:---:|:---:|:---:|:---:|
-| Global rules (`AGENTS.md`) | ✅ | ✅ | ✅ | ✅ | ✅ |
-| Skills (`~/.agents/skills/`) | ✅ | ✅ | ✅ | ✅ | ✅ |
-| MCP servers (context7, brave-search) | 🔧 | ✅ | 🔧 | 🔧 | ➖ |
-| GitHub (native OAuth) | ➖ | ✅ | ➖ | ➖ | ➖ |
-
-> 🔧 = guided setup via `setup-mcps` skill
-
-## Installation
-
-### macOS / Linux / Git Bash
+**Claude Code**
 
 ```bash
-git clone https://github.com/InnoVestrum/agent-skills.git ~/.agents/agent-skills
-bash ~/.agents/agent-skills/install.sh
+claude plugin marketplace add InnoVestrum/agent-skills
+claude plugin install innovestrum-standards@innovestrum
 ```
 
-### Windows (PowerShell)
-
-```powershell
-git clone https://github.com/InnoVestrum/agent-skills.git $HOME\.agents\agent-skills
-powershell -ExecutionPolicy Bypass -File $HOME\.agents\agent-skills\install.ps1
-```
-
-> Requires **Developer Mode** (Settings → Privacy & security → For developers) *or* an elevated PowerShell — Windows blocks symlink creation otherwise. Both installers pre-flight this and abort with instructions if it's missing.
-
-**What the installer does:** symlinks skills, global rules, and slash commands; creates the canonical repo symlink. If the Claude Code plugin marketplace clone (`~/.claude/plugins/marketplaces/innovestrum/`) is present, it also runs `git pull --ff-only` there so newly-pushed skills become visible to the plugin without a separate manual update. It does **not** install the Claude Code plugin — that step is still manual (see below).
-
-To update:
+**Codex**
 
 ```bash
-# bash
-git -C ~/.agents/agent-skills pull && bash ~/.agents/agent-skills/install.sh
-```
-```powershell
-# PowerShell
-git -C $HOME\.agents\agent-skills pull; & $HOME\.agents\agent-skills\install.ps1
+codex plugin marketplace add InnoVestrum/agent-skills
 ```
 
-### Claude Code plugin (manual)
+Then `/plugins` → install **innovestrum-standards**, and `/hooks` → review and trust its hooks. Codex skips a plugin's hooks until you trust them, so before that the skills work but the standards don't load. An update that changes the hook script needs the trust again.
 
-Open Claude Code and run:
+## Upgrading from the symlink installer
 
+> TODO(v1-migration): delete this section once no machine still carries the `install.sh` / `install.ps1` links.
+
+The old installer linked this repo into each tool's global paths. Remove those links before installing the plugin, or the standards load twice:
+
+```bash
+find ~/.agents/skills ~/.claude/commands ~/.claude/CLAUDE.md ~/.codex/AGENTS.md ~/.config/AGENTS.md ~/.config/agents/AGENTS.md ~/.codeium/windsurf/memories/global_rules.md -maxdepth 1 -type l -lname '*agent-skills*' -delete 2>/dev/null
 ```
-/plugin marketplace add InnoVestrum/agent-skills
-/plugin install innovestrum-standards@innovestrum
-```
 
-You'll be prompted for a GitHub Personal Access Token (`repo`, `read:org` from [github.com/settings/tokens](https://github.com/settings/tokens)). This interactive flow is the only supported path — the `claude plugin install` shell command cannot pass `userConfig` values, which leaves the GitHub MCP unconfigured and silently dropped.
+Then delete the old clone, `~/.agents/agent-skills` by default. On Windows the same links sit under `%USERPROFILE%`.
 
-### MCP setup for other tools
+## Update
 
-After install, ask your agent *"set up MCPs"* — it will invoke the `setup-mcps` skill.
-
-## Skills
-
-| Skill | Description |
+| Tool | Command |
 |---|---|
-| [`manage-rules`](skills/manage-rules) | Add, edit, or delete global engineering rules in `AGENTS.md` |
-| [`manage-skills`](skills/manage-skills) | Add, edit, or delete skills in this repository |
-| [`manage-commands`](skills/manage-commands) | Add, edit, or delete Claude Code slash commands |
-| [`manage-mcps`](skills/manage-mcps) | Add, edit, or remove MCP server declarations |
-| [`setup-mcps`](skills/setup-mcps) | Guided MCP setup for Windsurf, Cursor, Codex, and Claude Code |
-| [`github-admin-ops`](skills/github-admin-ops) | `gh api` / `gh project` fallbacks for what the GitHub MCP can't mutate — org teams, branch protection, Projects v2 |
-| [`mark-deferred-work`](skills/mark-deferred-work) | Drop a `TODO` marker with the why and a re-visit trigger when narrowing scope mid-task |
-| [`refine-project-memory`](skills/refine-project-memory) | Audit the project's auto-memory store — promote what still bites into canonical docs, delete the rest |
-| [`research-an-idea`](skills/research-an-idea) | Desk-research pipeline for an idea or market: brief → parallel cited tracks → red team → synthesis; findings only, the owner decides |
+| Claude Code | `claude plugin update innovestrum-standards@innovestrum`, or turn on auto-update for the marketplace in `/plugin` |
+| Codex | `codex plugin marketplace upgrade innovestrum` |
 
-## Skill Format
+## What's inside
 
-Each skill follows the [agentskills.io spec](https://agentskills.io/specification) — YAML frontmatter + Markdown body in `skills/<name>/SKILL.md`. The agent loads only `name` and `description` at startup (progressive disclosure), reading the full file only when the skill is relevant.
+**Standards.** A hook prints `AGENTS.md` at `SessionStart` and `SubagentStart`, so the main session and every subagent get the rules. A plugin has no other always-on channel: a `CLAUDE.md` inside one isn't loaded. The hook is a POSIX `sh` script, so on Windows it needs Git Bash.
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) to add or improve skills.
+**Skills**
+
+| Skill | Use it when |
+|---|---|
+| [`research-an-idea`](skills/research-an-idea) | Researching an idea, market or open question before a decision: brief → parallel cited tracks → red team → synthesis |
+| [`github-admin-ops`](skills/github-admin-ops) | A GitHub change needs `gh api` / `gh project` — org teams, branch protection, Projects v2 — and their gotchas |
+| [`mark-deferred-work`](skills/mark-deferred-work) | Scope narrows mid-task and the follow-up needs a `TODO` marker with its why and re-visit trigger |
+| [`refine-project-memory`](skills/refine-project-memory) | Auditing an agent's project memory: promote what still bites into canonical docs, delete the rest |
+
+## Contributing
+
+- A skill is `skills/<name>/SKILL.md`. Its `description` is the activation trigger; the body holds gaps, gotchas and pointers only (`AGENTS.md` § Documentation & Authoring). Leave out what a competent agent already knows: every description costs tokens in every session.
+- `.claude-plugin/plugin.json` has no `version` on purpose, so installs track commits. Add one and every user stays on their cached copy until it changes.
+- Keep `AGENTS.md` under 10,000 characters. Past that, Claude Code hands the model a file path and a 2,000-character preview instead of the rules.
+- Codex loads this repo through its Claude-compatible paths (`.claude-plugin/marketplace.json`, `.claude-plugin/plugin.json`), so there is one manifest to maintain, not two.
+- Run `claude plugin validate .` before pushing; its "No version specified" warning is the point above, not a defect. To try a change without installing: `claude --plugin-dir .`
 
 ## License
 
-[MIT](./LICENSE)
+[MIT](LICENSE)
