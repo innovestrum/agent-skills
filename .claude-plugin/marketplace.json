@@ -1,5 +1,6 @@
 {
   "name": "innovestrum",
+  "description": "InnoVestrum plugins for Claude Code and Codex",
   "owner": {
     "name": "InnoVestrum",
     "url": "https://github.com/InnoVestrum"
@@ -7,13 +8,7 @@
   "plugins": [
     {
       "name": "innovestrum-standards",
-      "source": {
-        "source": "url",
-        "url": "https://github.com/InnoVestrum/agent-skills.git"
-      },
-      "description": "InnoVestrum engineering standards: clean-code, OOP/SOLID/GRASP, cloud-native 12-factor, and code quality metrics",
-      "license": "MIT",
-      "keywords": ["clean-code", "solid", "oop", "cloud-native", "12-factor", "code-quality"]
+      "source": "./"
     }
   ]
 }
