@@ -110,6 +110,7 @@ After install, ask your agent *"set up MCPs"* — it will invoke the `setup-mcps
 | [`manage-commands`](skills/manage-commands) | Add, edit, or delete Claude Code slash commands |
 | [`manage-mcps`](skills/manage-mcps) | Add, edit, or remove MCP server declarations |
 | [`setup-mcps`](skills/setup-mcps) | Guided MCP setup for Windsurf, Cursor, Codex, and Claude Code |
+| [`research-an-idea`](skills/research-an-idea) | Desk-research pipeline for an idea or market: brief → parallel cited tracks → red team → synthesis; findings only, the owner decides |
 
 ## Skill Format
 
