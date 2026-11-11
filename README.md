@@ -110,6 +110,9 @@ After install, ask your agent *"set up MCPs"* — it will invoke the `setup-mcps
 | [`manage-commands`](skills/manage-commands) | Add, edit, or delete Claude Code slash commands |
 | [`manage-mcps`](skills/manage-mcps) | Add, edit, or remove MCP server declarations |
 | [`setup-mcps`](skills/setup-mcps) | Guided MCP setup for Windsurf, Cursor, Codex, and Claude Code |
+| [`github-admin-ops`](skills/github-admin-ops) | `gh api` / `gh project` fallbacks for what the GitHub MCP can't mutate — org teams, branch protection, Projects v2 |
+| [`mark-deferred-work`](skills/mark-deferred-work) | Drop a `TODO` marker with the why and a re-visit trigger when narrowing scope mid-task |
+| [`refine-project-memory`](skills/refine-project-memory) | Audit the project's auto-memory store — promote what still bites into canonical docs, delete the rest |
 | [`research-an-idea`](skills/research-an-idea) | Desk-research pipeline for an idea or market: brief → parallel cited tracks → red team → synthesis; findings only, the owner decides |
 
 ## Skill Format
