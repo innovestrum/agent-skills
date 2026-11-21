@@ -15,6 +15,8 @@
 - Always ask before hardcoding a value to fix a bug or issue
 - Keep README.md updated as the project evolves
 - Tag every temporary doc passage or code workaround with `TODO(ref):` and its removal trigger — the TODO and what it guards must be removable in one cut when the trigger fires
+- Before every push, run the linters and formatters that fail in seconds, on the changed files with CI's flags and config; heavy builds, test suites and renders stay in CI
+- Send every fix known in a round (CI red, review findings, critic items) in one push, never one push per fix
 
 ## Cloud & Infrastructure
 - Follow 12-factor app and cloud-native principles
